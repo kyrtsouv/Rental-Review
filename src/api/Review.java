@@ -27,5 +27,6 @@ public class Review {
         this.comment = comment;
         this.rating = rating;
     }
+    //ισως και εδω ελενχος χρηστη??
 
 }

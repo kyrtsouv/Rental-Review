@@ -1,4 +1,5 @@
-package api;
+import api.*;
+// import gui.*;
 
 /**
  * This class can be deleted
@@ -11,6 +12,9 @@ public class Main {
 
         r.addReview(new Review("John Wick", "Amazing house with all amenities ", 5));
         r.print();
+
+        r.editReview("John Wick", "Amazing house with all amenities and a great view", 4);
+
     }
 
 }
