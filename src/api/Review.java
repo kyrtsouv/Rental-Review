@@ -23,4 +23,9 @@ public class Review {
         return rating;
     }
 
+    public void editReview(String comment, int rating) {
+        this.comment = comment;
+        this.rating = rating;
+    }
+
 }
