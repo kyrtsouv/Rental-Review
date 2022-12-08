@@ -7,7 +7,7 @@ public class Rental {
     private HashMap<String, Review> reviews;
 
     public Rental(String name, String address, String city, String postcode, String description, String type,
-                  String owner) {
+            String owner) {
         details = new HashMap<>();
         details.put("name", name);
         details.put("address", address);
@@ -56,9 +56,8 @@ public class Rental {
         // TODO
     }
 
-    public void print() {
-    }
-    //θα πρεπει να μπορει να γινει ελεχγος χρηστη για ειτε την επεξεργασια σχολιου ειτε του rental
-    //plus getter για το κομματι του gui
+    // θα πρεπει να μπορει να γινει ελεχγος χρηστη για ειτε την επεξεργασια σχολιου
+    // ειτε του rental
+    // plus getter για το κομματι του gui
 
 }

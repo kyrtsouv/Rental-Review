@@ -11,7 +11,6 @@ public class Main {
                 "Viktor Kyrtsoudis");
 
         r.addReview(new Review("John Wick", "Amazing house with all amenities ", 5));
-        r.print();
 
         r.editReview("John Wick", "Amazing house with all amenities and a great view", 4);
 
