@@ -6,27 +6,41 @@ public class Rental {
     private HashMap<String, String> details;
     private HashMap<String, Review> reviews;
 
-    public Rental(String name, String address, String city, String postcode, String description, String type,
-                  String owner) {
-        details = new HashMap<>();
-        details.put("name", name);
-        details.put("address", address);
-        details.put("city", city);
-        details.put("postcode", postcode);
-        details.put("description", description);
-        details.put("type", type);
-        details.put("owner", owner);
-        details.put("rating", String.valueOf(null));
-
+    public Rental(String name, String address, String city, String postcode, String description, String type, String owner) {
+        details = new HashMap<>() {
+            {
+                put("name", name);
+                put("address", address);
+                put("city", city);
+                put("postcode", postcode);
+                put("description", description);
+                put("type", type);
+                put("owner", owner);
+                put("rating", "0");
+            }
+        };
         this.reviews = new HashMap<String, Review>();
     }
 
     public HashMap<String, String> getRental() {
-        return details;
+        return new HashMap<>(details);
+    }
+
+    public HashMap<String, String> getPreview() {
+        return new HashMap<>() {
+            {
+                put("name", details.get("name"));
+                put("type", details.get("type"));
+                put("address", details.get("address"));
+                put("city", details.get("city"));
+                put("postcode", details.get("postcode"));
+                put("rating", details.get("rating"));
+            }
+        };
     }
 
     public HashMap<String, Review> getReviews() {
-        return reviews;
+        return new HashMap<>(reviews);
     }
 
     public void addReview(Review review) {
@@ -34,8 +48,8 @@ public class Rental {
         updateRating();
     }
 
-    public void editReview(String user, String comment, int rating) {
-        reviews.get(user).editReview(comment, rating);
+    public void editReview(Review review) {
+        reviews.replace(review.getUser(), review);
         updateRating();
     }
 
@@ -44,7 +58,10 @@ public class Rental {
         for (Review review : reviews.values()) {
             sum += review.getRating();
         }
-        details.replace("rating", String.valueOf(sum / reviews.size()));
+        if (reviews.size() > 0)
+            details.replace("rating", String.valueOf(sum / reviews.size()));
+        else
+            details.replace("rating", "0");
     }
 
     public void deleteReview(String user) {
@@ -52,13 +69,18 @@ public class Rental {
         updateRating();
     }
 
-    public void editRental() {
-        // TODO
+    public void editRental(String name, String address, String city, String postcode, String description, String type, String owner) {
+        details.replace("name", name);
+        details.replace("address", address);
+        details.replace("city", city);
+        details.replace("postcode", postcode);
+        details.replace("description", description);
+        details.replace("type", type);
     }
 
-    public void print() {
-    }
-    //θα πρεπει να μπορει να γινει ελεχγος χρηστη για ειτε την επεξεργασια σχολιου ειτε του rental
-    //plus getter για το κομματι του gui
+    // θα πρεπει να μπορει να γινει ελεχγος χρηστη για ειτε την επεξεργασια σχολιου
+    // ειτε του rental
+    // plus getter για το κομματι του gui
+
 
 }

@@ -1,11 +1,11 @@
-package api.User;
+package api;
 
-import java.util.regex.Pattern;
+import java.util.HashMap;
 
 //Για τους απλούς χρήστες
 public class Tenant {
 
-    private static final String EMAIL_REGEX_PATTERN = "^(.+)@(.+).(.+)$";
+    /*private static final String EMAIL_REGEX_PATTERN = "^(.+)@(.+).(.+)$";
 
     private  String firstName;
     private  String lastName;
@@ -36,5 +36,23 @@ public class Tenant {
         return "First Name: " + this.firstName
                 + " Last Name: " + this.lastName
                 + " Email: " + this.email;
+    }*/
+
+    private HashMap<String, String> details;
+
+    public Tenant(String name, String surname, String username, String password) {
+        details = new HashMap<String, String>() {
+            {
+                put("name", name);
+                put("surname", surname);
+                put("username", username);
+                put("password", password);
+
+            }
+        };
     }
+
+
+
 }
+
