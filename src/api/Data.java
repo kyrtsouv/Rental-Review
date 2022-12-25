@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.HashMap;
 
 public class Data implements Serializable {
-    private HashMap<String, User> users;
-    private HashMap<String, Rental> rentals;
+    HashMap<String, User> users;
+    HashMap<String, Rental> rentals;
 
     public Data() {
         users = new HashMap<>();

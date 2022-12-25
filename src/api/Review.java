@@ -1,16 +1,16 @@
 package api;
 
-public class Review {
-    private int rating;
-    private String comment;
-    private Rental rental;
-    private User user;
+import java.io.Serializable;
 
-    public Review(int rating, String comment, User user, Rental rental) {
+public class Review implements Serializable {
+    int rating;
+    String comment;
+    Tenant reviewer;
+
+    public Review(int rating, String comment, Tenant reviewer) {
         this.rating = rating;
         this.comment = comment;
-        this.rental = rental;
-        this.user = user;
+        this.reviewer = reviewer;
     }
 
     public int getRating() {
@@ -21,17 +21,15 @@ public class Review {
         return comment;
     }
 
-    public User getUser() {
-        return user;
+    public Tenant getTenant() {
+        return reviewer;
     }
 
     public void setRating(int rating) {
         this.rating = rating;
-        rental.updateRating();
     }
 
     public void setComment(String comment) {
         this.comment = comment;
     }
-
 }
