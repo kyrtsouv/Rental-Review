@@ -33,7 +33,7 @@ public class DataTest {
     @Test
     public void getRentals() {
         data.addRental(rental);
-        assertTrue(data.getRentals().containsValue(rental));
+        assertTrue(data.getRentals().contains(rental));
         assertEquals(1, data.getRentals().size());
     }
 
@@ -46,13 +46,13 @@ public class DataTest {
     @Test
     public void addRental() {
         data.addRental(rental);
-        assertTrue(data.rentals.containsValue(rental));
+        assertTrue(data.rentals.contains(rental));
     }
 
     @Test
     public void removeRental() {
         data.addRental(rental);
         data.removeRental(rental);
-        assertFalse(data.rentals.containsValue(rental));
+        assertFalse(data.rentals.contains(rental));
     }
 }

@@ -156,9 +156,9 @@ public class RentalTest {
 
     @Test
     public void getNumOfRatings() {
-        assertEquals(0, rental.getNumOfRatings());
+        assertEquals(0, rental.getNumOfReviews());
         rental.addReview(review);
         rental.updateRating();
-        assertEquals(1, rental.getNumOfRatings());
+        assertEquals(1, rental.getNumOfReviews());
     }
 }
