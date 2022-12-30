@@ -42,7 +42,8 @@ public class RenterTest {
     public void updateRating() {
         renter.addRental(rental);
         assertEquals(0, renter.getRating());
-        rental.addReview(new Review(4, "very good", new Tenant("name", "surname", "username", "password")));
+        rental.addReview(new Review(4, "very good", SDate.dateToString(),
+                new Tenant("name", "surname", "username", "password")));
         rental.updateRating();
         renter.updateRating();
         assertEquals(4, renter.getRating());

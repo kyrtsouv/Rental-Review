@@ -19,7 +19,7 @@ public class TenantTest {
         renter = new Renter("name", "surname", "username", "password");
         tenant = new Tenant("name", "surname", "username2", "password");
         rental = new Rental("rentalName", "type", "address", "city", "zipcode", "description", new HashSet<>(), renter);
-        review = new Review(4, "very good", tenant);
+        review = new Review(4, "very good", SDate.dateToString(), tenant);
     }
 
     @Test

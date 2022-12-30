@@ -14,7 +14,7 @@ public class test {
         Rental rental = new Rental("rentalName", "type", "address", "city", "zipcode", "description", new HashSet<>(),
                 renter);
 
-        Review review = new Review(4, "very good", tenant);
+        Review review = new Review(4, "very good", SDate.dateToString(), tenant);
 
         Data data = new Data();
         renter.addRental(rental);

@@ -15,7 +15,7 @@ public class ReviewTest {
     @Before
     public void setUp() throws Exception {
         tenant = new Tenant("name", "surname", "username", "password");
-        review = new Review(4, "very good", tenant);
+        review = new Review(4, "very good", SDate.dateToString(), tenant);
     }
 
     @Test

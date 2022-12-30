@@ -18,7 +18,8 @@ public class RentalTest {
     public void setUp() throws Exception {
         renter = new Renter("name", "surname", "username", "password");
         rental = new Rental("rentalName", "type", "address", "city", "zipcode", "description", new HashSet<>(), renter);
-        review = new Review(5, "very good", new Tenant("name", "surname", "username", "password"));
+        review = new Review(5, "very good", SDate.dateToString(),
+                new Tenant("name", "surname", "username", "password"));
     }
 
     @Test
@@ -135,7 +136,8 @@ public class RentalTest {
     @Test
     public void updateRating() {
         rental.addReview(review);
-        rental.addReview(new Review(3, "good", new Tenant("name", "surname", "username", "password")));
+        rental.addReview(new Review(3, "good", SDate.dateToString(),
+                new Tenant("name", "surname", "username", "password")));
         rental.updateRating();
         assertEquals(4, rental.rating);
     }
@@ -155,10 +157,10 @@ public class RentalTest {
     }
 
     @Test
-    public void getNumOfRatings() {
-        assertEquals(0, rental.getNumOfReviews());
+    public void gettotalRatings() {
+        assertEquals(0, rental.gettotalReviews());
         rental.addReview(review);
         rental.updateRating();
-        assertEquals(1, rental.getNumOfReviews());
+        assertEquals(1, rental.gettotalReviews());
     }
 }

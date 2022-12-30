@@ -5,19 +5,19 @@ import java.util.HashSet;
 /**
  * Class that represents a Renter that can publish rentals to be reviewd
  * Apart from the fields of a User it also has a set of rentals and a
- * numOfReviews field that represent the total
+ * totalReviews field that represent the total
  * number of reviews of all the rentals of the Renter
  */
 public class Renter extends User {
 	HashSet<Rental> rentals;
-	int numOfReviews;
+	int totalReviews;
 
 	/**
 	 * Constructor:
 	 * Initializes the field variables with the corresponding parameters using the
 	 * super constructor of the User class
 	 * Rentals gets initialized with an empty HashSet of rentals
-	 * numOfReviews gets initialized with 0
+	 * totalReviews gets initialized with 0
 	 * 
 	 * @param name
 	 * @param surname
@@ -27,16 +27,16 @@ public class Renter extends User {
 	public Renter(String name, String surname, String username, String password) {
 		super(name, surname, username, password);
 		rentals = new HashSet<>();
-		numOfReviews = 0;
+		totalReviews = 0;
 	}
 
 	/**
 	 * Returns the number of reviews of the Renter
 	 * 
-	 * @return numOfReviews
+	 * @return totalReviews
 	 */
-	public int getNumOfReviews() {
-		return numOfReviews;
+	public int gettotalReviews() {
+		return totalReviews;
 	}
 
 	/**
@@ -76,10 +76,10 @@ public class Renter extends User {
 		rating = 0;
 		for (Rental rental : rentals) {
 			rating += rental.getRating();
-			numOfReviews += rental.getNumOfReviews();
+			totalReviews += rental.gettotalReviews();
 		}
-		if (numOfReviews > 0)
-			rating = rating / numOfReviews;
+		if (totalReviews > 0)
+			rating = rating / totalReviews;
 		else
 			rating = 0;
 	}

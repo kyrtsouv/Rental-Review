@@ -13,7 +13,7 @@ import java.util.HashSet;
  */
 public class Rental implements Serializable {
     int rating;
-    int numOfReviews;
+    int totalReviews;
     String searchID;
     String name;
     String type;
@@ -45,7 +45,7 @@ public class Rental implements Serializable {
     public Rental(String name, String type, String address, String city, String zipcode, String description,
             HashSet<String> amenities, Renter owner) {
         this.rating = 0;
-        this.numOfReviews = 0;
+        this.totalReviews = 0;
         this.searchID = (name + " " + type + " " + address + " " + city + " " + zipcode).toLowerCase();
         this.name = name;
         this.type = type;
@@ -71,10 +71,10 @@ public class Rental implements Serializable {
     /**
      * Returns the number of reviews of the rental
      * 
-     * @return numOfRatings
+     * @return totalRatings
      */
-    public int getNumOfReviews() {
-        return numOfReviews;
+    public int gettotalReviews() {
+        return totalReviews;
     }
 
     /**
@@ -111,6 +111,15 @@ public class Rental implements Serializable {
      */
     public String getType() {
         return type;
+    }
+
+    /**
+     * Returns the location of the rental as a String
+     * 
+     * @return location
+     */
+    public String getLocation() {
+        return address + ", " + city + ", " + zipcode;
     }
 
     /**
@@ -275,7 +284,7 @@ public class Rental implements Serializable {
      */
     public void addReview(Review review) {
         reviews.put(review.getTenant(), review);
-        numOfReviews++;
+        totalReviews++;
     }
 
     /**
@@ -286,6 +295,6 @@ public class Rental implements Serializable {
      */
     public void removeReview(Review review) {
         reviews.remove(review.getTenant());
-        numOfReviews--;
+        totalReviews--;
     }
 }

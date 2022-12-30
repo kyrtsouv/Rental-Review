@@ -4,97 +4,71 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class MainGUI {
-    JFrame frame;
-    LoginPanel loginPanel;
-    RegisterPanel registerPanel;
+public class MainGUI extends JFrame {
     CardLayout cardLayout;
 
-    public MainGUI() {
-        loginPanel = new LoginPanel();
-        registerPanel = new RegisterPanel();
+    public MainGUI(LoginPanel loginPanel, RegisterPanel registerPanel) {
 
         cardLayout = new CardLayout();
 
-        frame = new JFrame("Authentication");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
-        frame.setFocusable(true);
-        frame.setLayout(cardLayout);
-        frame.add(loginPanel, "login");
-        frame.add(registerPanel, "register");
+        setTitle("Login");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setFocusable(true);
+        setLayout(cardLayout);
+        add(loginPanel, "login");
+        add(registerPanel, "register");
 
-        cardLayout.show(frame.getContentPane(), "login");
+        cardLayout.show(getContentPane(), "login");
 
-        frame.pack();
-        frame.setMinimumSize(frame.getSize());
-        System.out.println(frame.getSize());
-        frame.setVisible(true);
-    }
+        pack();
+        setResizable(false);
+        setVisible(true);
 
-    public void setLoginError(String text) {
-        loginPanel.setError(text);
-    }
+        loginPanel.addRegisterListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showRegister();
+                loginPanel.setError("");
+            }
+        });
 
-    public void setRegisterError(String text) {
-        registerPanel.setError(text);
+        registerPanel.addLoginListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showLogin();
+                registerPanel.setError("");
+            }
+        });
     }
 
     public void showLogin() {
-        cardLayout.show(frame.getContentPane(), "login");
-        setRegisterError("");
+        cardLayout.show(getContentPane(), "login");
+        setTitle("Login");
     }
 
     public void showRegister() {
-        cardLayout.show(frame.getContentPane(), "register");
-        setLoginError("");
-    }
-
-    public void addLoginForRegisterListener(ActionListener listener) {
-        registerPanel.addLoginListener(listener);
-    }
-
-    public void addRegisterForLoginListener(ActionListener listener) {
-        loginPanel.addRegisterListener(listener);
-    }
-
-    public void addLoginListener(ActionListener listener) {
-        loginPanel.addLoginListener(listener);
-    }
-
-    public void addRegisterListener(ActionListener listener) {
-        registerPanel.addRegisterListener(listener);
+        cardLayout.show(getContentPane(), "register");
+        setTitle("Register");
     }
 
     public static void main(String[] args) {
-        MainGUI main = new MainGUI();
-        for (Component comp : main.frame.getContentPane().getComponents()) {
-            System.out.println(comp);
-        }
-        main.addLoginForRegisterListener(new ActionListener() {
+
+        LoginPanel loginPanel = new LoginPanel();
+        RegisterPanel registerPanel = new RegisterPanel();
+        new MainGUI(loginPanel, registerPanel);
+
+        loginPanel.addLoginListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                main.showLogin();
-            }
-        });
-        main.addRegisterForLoginListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                main.showRegister();
+                loginPanel.setError("Login");
             }
         });
 
-        main.addLoginListener(new ActionListener() {
+        registerPanel.addRegisterListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                main.setLoginError("Login");
-            }
-        });
-
-        main.addRegisterListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                main.setRegisterError("Register");
+                registerPanel.setError("Register");
             }
         });
     }

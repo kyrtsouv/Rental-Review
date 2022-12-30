@@ -4,11 +4,13 @@ import java.io.Serializable;
 
 /**
  * Class that represents a review of a rental
- * It has a rating, a comment and the Tenant that wrote the review
+ * It has a rating, a comment, the date the review was created or edited and the
+ * Tenant that wrote the review
  */
 public class Review implements Serializable {
     int rating;
     String comment;
+    String date;
     Tenant reviewer;
 
     /**
@@ -19,9 +21,10 @@ public class Review implements Serializable {
      * @param comment
      * @param reviewer
      */
-    public Review(int rating, String comment, Tenant reviewer) {
+    public Review(int rating, String comment, String date, Tenant reviewer) {
         this.rating = rating;
         this.comment = comment;
+        this.date = date;
         this.reviewer = reviewer;
     }
 
@@ -41,6 +44,15 @@ public class Review implements Serializable {
      */
     public String getComment() {
         return comment;
+    }
+
+    /**
+     * Returns the date the review was created or edited
+     * 
+     * @return date
+     */
+    public String getDate() {
+        return date;
     }
 
     /**
