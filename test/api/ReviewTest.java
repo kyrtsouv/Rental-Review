@@ -19,11 +19,6 @@ public class ReviewTest {
     }
 
     @Test
-    public void getRating() {
-        assertEquals(4, review.getRating());
-    }
-
-    @Test
     public void getComment() {
         assertEquals("very good", review.getComment());
     }
@@ -34,14 +29,20 @@ public class ReviewTest {
     }
 
     @Test
-    public void setRating() {
-        review.setRating(5);
-        assertEquals(5, review.getRating());
+    public void getRating() {
+        assertEquals(4,review.getRating(),0.001);
     }
 
     @Test
-    public void setComment() {
-        review.setComment("not bad");
-        assertEquals("not bad", review.getComment());
+    public void getDate() {
+        assertEquals(SDate.dateToString(),review.getDate());
+    }
+
+    @Test
+    public void updateReview() {
+        review.updateReview(1,"awful", SDate.dateToString());
+        assertEquals(1,review.getRating(),0.001);
+        assertEquals("awful",review.getComment());
+        assertEquals(SDate.dateToString(),review.getDate());
     }
 }

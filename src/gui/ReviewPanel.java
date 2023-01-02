@@ -9,7 +9,7 @@ public class ReviewPanel extends JPanel {
     JPanel innerPanel;
     JPanel topPanel;
 
-    JLabel nameLabel;
+    JLabel usernameLabel;
     JLabel ratingLabel;
     JLabel commentLabel;
     JLabel dateLabel;
@@ -17,21 +17,25 @@ public class ReviewPanel extends JPanel {
     MyButton editButton;
     MyButton deleteButton;
 
-    public ReviewPanel(String username, int rating, String comment, String date) {
-        nameLabel = new JLabel(username);
-        editButton = new MyButton("Edit");
-        deleteButton = new MyButton("Delete");
+    public ReviewPanel(String username, float rating, String comment, String date, String viewer, String owner) {
+        usernameLabel = new JLabel(username);
+        editButton = new MyButton("Επεξεργασία");
+        deleteButton = new MyButton("Διαγραφή");
         deleteButton.setBackground(Color.RED);
+        if (!viewer.equals(owner)) {
+            editButton.setVisible(false);
+            deleteButton.setVisible(false);
+        }
 
         topPanel = new JPanel();
         topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.LINE_AXIS));
         topPanel.setAlignmentX(LEFT_ALIGNMENT);
-        topPanel.add(nameLabel);
+        topPanel.add(usernameLabel);
         topPanel.add(Box.createHorizontalGlue());
         topPanel.add(editButton);
         topPanel.add(deleteButton);
 
-        ratingLabel = new JLabel("Rating: " + rating);
+        ratingLabel = new JLabel("Βαθμολογία: " + rating);
         commentLabel = new JLabel("<html>" + comment + "</html>");
         dateLabel = new JLabel(date);
         dateLabel.setForeground(getForeground().brighter().brighter().brighter());
@@ -63,11 +67,20 @@ public class ReviewPanel extends JPanel {
         deleteButton.addActionListener(listener);
     }
 
-    public static void main(String[] args) {
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(new ReviewPanel("username", 5, "comment", "date"));
-        frame.pack();
-        frame.setVisible(true);
+    public float getRating() {
+        return (float) Double.parseDouble(ratingLabel.getText().substring(12));
+    }
+
+    public String getUsername() {
+        return usernameLabel.getText();
+    }
+
+    public void updateReview(float rating, String comment, String date) {
+        ratingLabel.setText("Βαθμολογία: " + rating);
+        commentLabel.setText("<html>" + comment + "</html>");
+        dateLabel.setText(date);
+
+        revalidate();
+        repaint();
     }
 }

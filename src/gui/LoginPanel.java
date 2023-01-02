@@ -26,8 +26,8 @@ public class LoginPanel extends JPanel {
     MyButton register;
 
     public LoginPanel() {
-        usernameLabel = new JLabel("Username:");
-        passwordLabel = new JLabel("Password:");
+        usernameLabel = new JLabel("Όνομα χρήστη:");
+        passwordLabel = new JLabel("Κωδικός:");
         username = new JTextField(10);
         password = new JPasswordField(10);
 
@@ -41,13 +41,13 @@ public class LoginPanel extends JPanel {
         errorLabel.setAlignmentX(CENTER_ALIGNMENT);
         errorLabel.setForeground(Color.RED);
 
-        loginButton = new MyButton("Login");
+        loginButton = new MyButton("Είσοδος");
         loginButton.setAlignmentX(CENTER_ALIGNMENT);
         loginButton.setContentAreaFilled(false);
 
-        registerLabel = new JLabel("Don't have an account?");
+        registerLabel = new JLabel("Δεν έχετε λογαριασμό;");
 
-        register = new MyButton("Register");
+        register = new MyButton("Εγγραφή");
         register.setForeground(Color.BLUE.brighter());
         register.setContentAreaFilled(false);
 
@@ -71,6 +71,8 @@ public class LoginPanel extends JPanel {
     }
 
     public void addLoginListener(ActionListener listener) {
+        username.addActionListener(listener);
+        password.addActionListener(listener);
         loginButton.addActionListener(listener);
     }
 
@@ -80,5 +82,19 @@ public class LoginPanel extends JPanel {
 
     public void setError(String text) {
         errorLabel.setText(text);
+    }
+
+    public String getUsername() {
+        return username.getText();
+    }
+
+    public String getPassword() {
+        return new String(password.getPassword());
+    }
+
+    public void clear() {
+        username.setText("");
+        password.setText("");
+        errorLabel.setText("");
     }
 }

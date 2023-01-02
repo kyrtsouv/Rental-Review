@@ -36,10 +36,10 @@ public class RegisterPanel extends JPanel {
         surname = new JTextField(10);
         username = new JTextField(10);
         password = new JPasswordField(10);
-        nameLabel = new JLabel("Name");
-        surnameLabel = new JLabel("Surname");
-        usernameLabel = new JLabel("Username");
-        passwordLabel = new JLabel("Password");
+        nameLabel = new JLabel("Όνομα");
+        surnameLabel = new JLabel("Επώνυμο");
+        usernameLabel = new JLabel("Όνομα χρήστη");
+        passwordLabel = new JLabel("Κωδικός");
 
         inputPanel = new JPanel(new GridLayout(4, 2));
         inputPanel.add(nameLabel);
@@ -52,20 +52,20 @@ public class RegisterPanel extends JPanel {
         inputPanel.add(password);
 
         typeComboBox = new JComboBox<>();
-        typeComboBox.addItem("Renter");
-        typeComboBox.addItem("Tenant");
+        typeComboBox.addItem("Πάροχος");
+        typeComboBox.addItem("Χρήστης");
 
         errorLabel = new JLabel();
         errorLabel.setAlignmentX(CENTER_ALIGNMENT);
         errorLabel.setForeground(Color.RED);
 
-        registerButton = new MyButton("Register");
+        registerButton = new MyButton("Εγγραφή");
         registerButton.setAlignmentX(CENTER_ALIGNMENT);
         registerButton.setContentAreaFilled(false);
 
-        loginLabel = new JLabel("Already have an account?");
+        loginLabel = new JLabel("Έχετε ήδη λογαριασμό?");
 
-        loginButton = new MyButton("Login");
+        loginButton = new MyButton("Είσοδος");
         loginButton.setForeground(Color.BLUE.brighter());
         loginButton.setContentAreaFilled(false);
 
@@ -90,7 +90,31 @@ public class RegisterPanel extends JPanel {
         add(Box.createVerticalGlue());
     }
 
+    public String getName() {
+        return name.getText();
+    }
+
+    public String getSurname() {
+        return surname.getText();
+    }
+
+    public String getUsername() {
+        return username.getText();
+    }
+
+    public String getPassword() {
+        return new String(password.getPassword());
+    }
+
+    public String getType() {
+        return (String) typeComboBox.getSelectedItem();
+    }
+
     public void addRegisterListener(ActionListener listener) {
+        name.addActionListener(listener);
+        surname.addActionListener(listener);
+        username.addActionListener(listener);
+        password.addActionListener(listener);
         registerButton.addActionListener(listener);
     }
 
@@ -100,5 +124,13 @@ public class RegisterPanel extends JPanel {
 
     public void setError(String error) {
         errorLabel.setText(error);
+    }
+
+    public void clear() {
+        name.setText("");
+        surname.setText("");
+        username.setText("");
+        password.setText("");
+        errorLabel.setText("");
     }
 }
