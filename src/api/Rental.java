@@ -12,15 +12,15 @@ import java.util.HashSet;
  * It also has a searchID that is used to search for it in the database
  */
 public class Rental implements Serializable {
+    int rating;
+    int totalReviews;
+    String searchID;
     String name;
     String type;
     String address;
     String city;
     String zipcode;
     String description;
-    String searchID;
-    int totalReviews;
-    float rating;
     HashSet<String> amenities;
     HashMap<Tenant, Review> reviews;
     Renter owner;
@@ -28,7 +28,7 @@ public class Rental implements Serializable {
     /**
      * Constructor:
      * Initializes the field variables with the corresponding parameters
-     * Rating and number of reviews get initialized with 0
+     * Rating and number of ratings get initialized with 0
      * SearchID gets initialized with the name, type, address, city and zipcode of
      * the rental in lowercase letters
      * Reviews gets initialized with an empty HashMap of reviewers to reviews
@@ -44,6 +44,9 @@ public class Rental implements Serializable {
      */
     public Rental(String name, String type, String address, String city, String zipcode, String description,
             HashSet<String> amenities, Renter owner) {
+        this.rating = 0;
+        this.totalReviews = 0;
+        this.searchID = (name + " " + type + " " + address + " " + city + " " + zipcode).toLowerCase();
         this.name = name;
         this.type = type;
         this.address = address;
@@ -51,12 +54,8 @@ public class Rental implements Serializable {
         this.zipcode = zipcode;
         this.description = description;
         this.amenities = amenities;
-        this.owner = owner;
-
-        this.rating = 0;
-        this.totalReviews = 0;
         this.reviews = new HashMap<Tenant, Review>();
-        this.searchID = (name + " " + type + " " + address + " " + city + " " + zipcode).toLowerCase();
+        this.owner = owner;
     }
 
     // ------------------ GETTERS ------------------ //
@@ -65,7 +64,7 @@ public class Rental implements Serializable {
      * 
      * @return rating
      */
-    public float getRating() {
+    public int getRating() {
         return rating;
     }
 
@@ -74,7 +73,7 @@ public class Rental implements Serializable {
      * 
      * @return totalRatings
      */
-    public int getTotalReviews() {
+    public int gettotalReviews() {
         return totalReviews;
     }
 
@@ -169,19 +168,6 @@ public class Rental implements Serializable {
     }
 
     /**
-     * Returns the amenities of the rental as a String
-     * 
-     * @return amenitiesString
-     */
-    public String getAmenitiesString() {
-        String amenitiesString = "";
-        for (String amenity : amenities) {
-            amenitiesString += amenity + " ";
-        }
-        return amenitiesString.toLowerCase();
-    }
-
-    /**
      * Returns the owner of the rental
      * 
      * @return owner
@@ -193,7 +179,7 @@ public class Rental implements Serializable {
     // ------------------ SETTERS ------------------ //
 
     /**
-     * Updates the name according to the parameter and updates the
+     * Updates the name field according to the parameter and updates the
      * searchID
      * 
      * @param name
@@ -204,7 +190,7 @@ public class Rental implements Serializable {
     }
 
     /**
-     * Updates the type according to the parameter and updates the
+     * Updates the type field according to the parameter and updates the
      * searchID
      * 
      * @param type
@@ -215,7 +201,7 @@ public class Rental implements Serializable {
     }
 
     /**
-     * Updates the address according to the parameter and updates the
+     * Updates the address field according to the parameter and updates the
      * searchID
      * 
      * @param address
@@ -226,7 +212,7 @@ public class Rental implements Serializable {
     }
 
     /**
-     * Updates the city according to the parameter and updates the
+     * Updates the city field according to the parameter and updates the
      * searchID
      * 
      * @param city
@@ -237,7 +223,7 @@ public class Rental implements Serializable {
     }
 
     /**
-     * Updates the zipcode according to the parameter and updates the
+     * Updates the zipcode field according to the parameter and updates the
      * searchID
      * 
      * @param zipcode
@@ -248,7 +234,7 @@ public class Rental implements Serializable {
     }
 
     /**
-     * Updates the description according to the parameter
+     * Updates the description field according to the parameter
      * 
      * @param description
      */
@@ -272,7 +258,7 @@ public class Rental implements Serializable {
      * and zipcode
      */
     public void updateSearchID() {
-        searchID = (name + " " + type + " " + address + " " + city + " " + zipcode).toLowerCase();
+        this.searchID = (name + " " + type + " " + address + " " + city + " " + zipcode).toLowerCase();
     }
 
     /**
@@ -280,17 +266,19 @@ public class Rental implements Serializable {
      * reviews
      */
     public void updateRating() {
-        rating = 0;
+        this.rating = 0;
         for (Review review : reviews.values()) {
-            rating += review.getRating();
+            this.rating += review.getRating();
         }
-        if (totalReviews > 0)
-            rating /= reviews.size();
+        if (reviews.size() > 0)
+            this.rating /= reviews.size();
+        else
+            this.rating = 0;
     }
 
     /**
      * Adds to the rental the review that is passed as a parameter and increases the
-     * total number of reviews
+     * number of reviews
      * 
      * @param review
      */

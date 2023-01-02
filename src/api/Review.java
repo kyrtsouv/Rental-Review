@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Tenant that wrote the review
  */
 public class Review implements Serializable {
-    float rating;
+    int rating;
     String comment;
     String date;
     Tenant reviewer;
@@ -21,7 +21,7 @@ public class Review implements Serializable {
      * @param comment
      * @param reviewer
      */
-    public Review(float rating, String comment, String date, Tenant reviewer) {
+    public Review(int rating, String comment, String date, Tenant reviewer) {
         this.rating = rating;
         this.comment = comment;
         this.date = date;
@@ -33,7 +33,7 @@ public class Review implements Serializable {
      * 
      * @return rating
      */
-    public float getRating() {
+    public int getRating() {
         return rating;
     }
 
@@ -65,15 +65,20 @@ public class Review implements Serializable {
     }
 
     /**
-     * Updates the review with the according parameters
+     * Updates the rating field according to the parameter
      * 
      * @param rating
-     * @param comment
-     * @param date
      */
-    public void updateReview(float rating, String comment, String date) {
+    public void setRating(int rating) {
         this.rating = rating;
+    }
+
+    /**
+     * Updates the comment field according to the parameter
+     * 
+     * @param comment
+     */
+    public void setComment(String comment) {
         this.comment = comment;
-        this.date = date;
     }
 }
