@@ -13,7 +13,7 @@ public class Tenant extends User {
      * Constructor:
      * Initializes the field variables with the corresponding parameters using the
      * super constructor of the User class
-     * Reviews gets initialized with an empty HashMap
+     * Reviews gets initialized with an empty HashMap of rentals to reviews
      * 
      * @param name
      * @param surname
@@ -64,7 +64,9 @@ public class Tenant extends User {
             rating += review.getRating();
         }
         if (reviews.size() > 0)
-            rating /= reviews.size();
+            rating = rating / reviews.size();
+        else
+            rating = 0;
     }
 
 }

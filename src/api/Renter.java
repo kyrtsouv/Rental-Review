@@ -16,7 +16,7 @@ public class Renter extends User {
 	 * Constructor:
 	 * Initializes the field variables with the corresponding parameters using the
 	 * super constructor of the User class
-	 * Rentals gets initialized with an empty HashSet
+	 * Rentals gets initialized with an empty HashSet of rentals
 	 * totalReviews gets initialized with 0
 	 * 
 	 * @param name
@@ -35,7 +35,7 @@ public class Renter extends User {
 	 * 
 	 * @return totalReviews
 	 */
-	public int getTotalReviews() {
+	public int gettotalReviews() {
 		return totalReviews;
 	}
 
@@ -49,7 +49,7 @@ public class Renter extends User {
 	}
 
 	/**
-	 * Adds to the set of rentals the rental that is passed as a parameter
+	 * Adds to the set of rentals the rental that is passed as a parameter *
 	 * 
 	 * @param rental
 	 */
@@ -67,20 +67,20 @@ public class Renter extends User {
 	}
 
 	/**
-	 * Updates the rating by calculating the average rating of each review of all
-	 * the rentals and updates the number of reviews by adding the number of reviews
-	 * of all the rentals
+	 * Updates the rating according to the average rating of all the rentals and
+	 * updates the number of reviews by adding the number of reviews of all the
+	 * rentals
+	 *
 	 */
 	public void updateRating() {
 		rating = 0;
-		totalReviews = 0;
 		for (Rental rental : rentals) {
-			for (Review review : rental.getReviews().values()) {
-				rating += review.getRating();
-			}
-			totalReviews += rental.getTotalReviews();
+			rating += rental.getRating();
+			totalReviews += rental.gettotalReviews();
 		}
 		if (totalReviews > 0)
-			rating /= totalReviews;
+			rating = rating / totalReviews;
+		else
+			rating = 0;
 	}
 }

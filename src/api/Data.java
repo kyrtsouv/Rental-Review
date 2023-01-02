@@ -1,9 +1,5 @@
 package api;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -12,33 +8,26 @@ import java.util.HashSet;
  * Class that represents the data of the application
  * It has a map of (String)usernames to users and a set of (String)names
  * to rentals
- * 
- * It also has a map of (String)amenityTitles to a set of (String)amenities
- * and a set of (String)rentalTypes
  */
 public class Data implements Serializable {
     HashMap<String, User> users;
     HashSet<Rental> rentals;
     final HashMap<String, HashSet<String>> amenities;
-    final HashSet<String> rentalTypes;
-
-    private static final long serialVersionUID = 1;
+    final HashSet<String> type;
 
     /**
      * Constructor:
-     * Initializes the users map with an empty HashMap, the rentals set with an
-     * empty HashSet the amenities map with the required amenities and the
-     * rentalTypes set with the required rental types
+     * Initializes the field variables with empty map and set
      */
     public Data() {
         users = new HashMap<>();
         rentals = new HashSet<>();
         amenities = new HashMap<>();
-        rentalTypes = new HashSet<>();
+        type = new HashSet<>();
 
-        rentalTypes.add("Ξενοδοχείο");
-        rentalTypes.add("Διαμέρισμα");
-        rentalTypes.add("Μεζονέτα");
+        type.add("Ξενοδοχείο");
+        type.add("Διαμέρισμα");
+        type.add("Μεζονέτα");
 
         HashSet<String> set = new HashSet<>();
         set.add("Θέα σε πισίνα");
@@ -97,50 +86,7 @@ public class Data implements Serializable {
     }
 
     /**
-     * Returns the set of rentalTypes
-     * 
-     * @return rentalTypes
-     */
-    public HashSet<String> getRentalTypes() {
-        return rentalTypes;
-    }
-
-    /**
-     * Returns the map of amenityTitles to set of amenities
-     * 
-     * @return amenities
-     */
-    public HashMap<String, HashSet<String>> getAmenities() {
-        return amenities;
-    }
-
-    /**
-     * Returns the user with the username and password that are passed as
-     * parameters if they exist, null otherwise
-     * 
-     * @param username
-     * @param password
-     * @return user
-     */
-    public User getUser(String username, String password) {
-        if (users.containsKey(username) && users.get(username).getPassword().equals(password))
-            return users.get(username);
-        return null;
-    }
-
-    /**
-     * Returns false if the username that is passed as a parameter exists in the
-     * map of users, true otherwise
-     * 
-     * @param username
-     * @return true if the username exists, false otherwise
-     */
-    public boolean available(String username) {
-        return !users.containsKey(username);
-    }
-
-    /**
-     * Returns the map of username to users
+     * Returns the map of users
      * 
      * @return users
      */
@@ -185,33 +131,4 @@ public class Data implements Serializable {
         rentals.remove(rental);
     }
 
-    /**
-     * Saves the data object to a file
-     */
-    public void save() {
-        try {
-            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("data.ser"));
-            out.writeObject(this);
-            out.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Loads and returns the data object from a file if the file exists. If the file
-     * does not exist a new data object is created and returned
-     * 
-     * @return data
-     */
-    public static Data load() {
-        try {
-            ObjectInputStream in = new ObjectInputStream(new FileInputStream("data.ser"));
-            Data data = (Data) in.readObject();
-            in.close();
-            return data;
-        } catch (Exception e) {
-            return new Data();
-        }
-    }
 }

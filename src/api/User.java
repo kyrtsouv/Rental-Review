@@ -11,7 +11,7 @@ public class User implements Serializable {
     protected String surname;
     protected String username;
     protected String password;
-    protected float rating;
+    protected int rating;
 
     /**
      * Constructor:
@@ -72,7 +72,7 @@ public class User implements Serializable {
      * 
      * @return rating
      */
-    public float getRating() {
+    public int getRating() {
         return rating;
     }
 }
