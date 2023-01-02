@@ -42,4 +42,13 @@ public class TenantTest {
         assertEquals(1, tenant.getReviews().size());
         assertTrue(tenant.getReviews().containsValue(review));
     }
+
+    @Test
+    public void updateRating() {
+        rental.addReview(review);
+        tenant.addReview(rental, review);
+
+        tenant.updateRating();
+        assertEquals(4, tenant.getRating(), 0.001);
+    }
 }

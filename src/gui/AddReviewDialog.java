@@ -1,21 +1,26 @@
 package gui;
 
-import java.awt.Color;
+import java.awt.event.*;
+import java.awt.*;
 
 import javax.swing.*;
+import javax.swing.event.*;
 import javax.swing.text.*;
 
-public class AddReview extends JDialog {
+public class AddReviewDialog extends JDialog {
     JPanel commentPanel;
     JPanel ratingPanel;
 
+    JLabel errorLabel;
+
     JTextArea comment;
+
     SpinnerNumberModel rating;
     JSpinner ratingSpinner;
 
     JButton submitButton;
 
-    public AddReview(java.awt.Frame parent, boolean modal) {
+    public AddReviewDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
 
         PlainDocument doc = new PlainDocument();
@@ -44,9 +49,32 @@ public class AddReview extends JDialog {
         comment.setDocument(doc);
         comment.setBorder(BorderFactory.createLineBorder(Color.black));
 
+        Document d = comment.getDocument();
+        d.addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                update();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                update();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                update();
+            }
+
+            private void update() {
+                commentPanel.setBorder(
+                        BorderFactory.createTitledBorder("Comment: " + comment.getText().length() + "/500"));
+            }
+        });
+
         commentPanel = new JPanel();
         commentPanel.setLayout(new BoxLayout(commentPanel, BoxLayout.PAGE_AXIS));
-        commentPanel.setBorder(BorderFactory.createTitledBorder("Comment"));
+        commentPanel.setBorder(BorderFactory.createTitledBorder("Comment: 0/500"));
         commentPanel.add(comment);
 
         SpinnerNumberModel rating = new SpinnerNumberModel(5, 1, 5, 1);
@@ -56,24 +84,41 @@ public class AddReview extends JDialog {
         ratingPanel.setBorder(BorderFactory.createTitledBorder("Rating"));
         ratingPanel.add(ratingSpinner);
 
+        errorLabel = new JLabel();
+        errorLabel.setForeground(Color.red);
+        errorLabel.setAlignmentX(CENTER_ALIGNMENT);
+
         submitButton = new JButton("OK");
-        submitButton.addActionListener(e -> {
-            dispose();
-        });
         submitButton.setAlignmentX(CENTER_ALIGNMENT);
 
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLayout(new BoxLayout(this.getContentPane(), BoxLayout.PAGE_AXIS));
         add(commentPanel);
         add(ratingPanel);
+        add(errorLabel);
         add(submitButton);
 
         pack();
         setMinimumSize(getSize());
         setSize(400, 400);
         setLocationRelativeTo(parent);
-        setVisible(true);
-
     }
 
+    public void addSubmitListener(ActionListener listener) {
+        submitButton.addActionListener(listener);
+    }
+
+    public String getComment() {
+        return comment.getText();
+    }
+
+    public int getRating() {
+        return (int) ratingSpinner.getValue();
+    }
+
+    public void setError(String error) {
+        errorLabel.setText(error);
+        pack();
+        setMinimumSize(getSize());
+    }
 }

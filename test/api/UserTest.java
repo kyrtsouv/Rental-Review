@@ -35,6 +35,6 @@ public class UserTest {
 
     @Test
     public void getRating() {
-        assertEquals(0, user.getRating());
+        assertEquals(0, user.getRating(),0.001);
     }
 }

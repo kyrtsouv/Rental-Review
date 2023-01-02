@@ -7,21 +7,36 @@ import java.awt.event.*;
 public class MainGUI extends JFrame {
     CardLayout cardLayout;
 
+    JScrollPane scrollPane;
+
+    LoginPanel loginPanel;
+    RegisterPanel registerPanel;
+    RenterPanel renterPanel;
+    TenantPanel tenantPanel;
+
+    JPanel innerPanel;
+
     public MainGUI(LoginPanel loginPanel, RegisterPanel registerPanel) {
+
+        this.loginPanel = loginPanel;
+        this.registerPanel = registerPanel;
 
         cardLayout = new CardLayout();
 
-        setTitle("Login");
+        innerPanel = new JPanel();
+
+        innerPanel.setLayout(cardLayout);
+        innerPanel.add(loginPanel, "login");
+        innerPanel.add(registerPanel, "register");
+
+        scrollPane = new JScrollPane(innerPanel);
+
+        cardLayout.show(innerPanel, "login");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setFocusable(true);
-        setLayout(cardLayout);
-        add(loginPanel, "login");
-        add(registerPanel, "register");
-
-        cardLayout.show(getContentPane(), "login");
-
-        pack();
+        setTitle("Login");
+        add(scrollPane);
+        setSize(new Dimension(800, 800));
         setResizable(false);
         setVisible(true);
 
@@ -29,7 +44,7 @@ public class MainGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 showRegister();
-                loginPanel.setError("");
+                loginPanel.clear();
             }
         });
 
@@ -37,40 +52,36 @@ public class MainGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 showLogin();
-                registerPanel.setError("");
+                registerPanel.clear();
             }
         });
     }
 
     public void showLogin() {
-        cardLayout.show(getContentPane(), "login");
+        cardLayout.show(innerPanel, "login");
+        loginPanel.clear();
         setTitle("Login");
     }
 
     public void showRegister() {
-        cardLayout.show(getContentPane(), "register");
+        cardLayout.show(innerPanel, "register");
+        registerPanel.clear();
         setTitle("Register");
     }
 
-    public static void main(String[] args) {
-
-        LoginPanel loginPanel = new LoginPanel();
-        RegisterPanel registerPanel = new RegisterPanel();
-        new MainGUI(loginPanel, registerPanel);
-
-        loginPanel.addLoginListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                loginPanel.setError("Login");
-            }
-        });
-
-        registerPanel.addRegisterListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                registerPanel.setError("Register");
-            }
-        });
+    public void showRenter(RenterPanel renterPanel) {
+        this.renterPanel = renterPanel;
+        setResizable(true);
+        innerPanel.add(renterPanel, "renter");
+        cardLayout.show(innerPanel, "renter");
+        setTitle("Renter");
     }
 
+    public void showTenant(TenantPanel tenantPanel) {
+        this.tenantPanel = tenantPanel;
+        setResizable(true);
+        innerPanel.add(tenantPanel, "tenant");
+        cardLayout.show(innerPanel, "tenant");
+        setTitle("Tenant");
+    }
 }

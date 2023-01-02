@@ -14,7 +14,7 @@ public class DataTest {
     Data data;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         tenant = new Tenant("name", "surname", "username", "password");
         renter = new Renter("name2", "surname2", "username2", "password2");
         rental = new Rental("rentalName", "type", "address", "city", "zipcode", "description", new HashSet<>(), renter);
@@ -55,4 +55,20 @@ public class DataTest {
         data.removeRental(rental);
         assertFalse(data.rentals.contains(rental));
     }
+
+    @Test
+    public void getUser() {
+        data.addUser(tenant);
+        assertSame(data.getUser(tenant.getUsername(), tenant.getPassword()), tenant);
+        assertSame(null,data.getUser("not", "aUser"));
+    }
+
+    @Test
+    public void available() {
+        data.addUser(tenant);
+        assertFalse(data.available("username"));
+        assertTrue(data.available("username3"));
+
+    }
+
 }

@@ -71,6 +71,8 @@ public class LoginPanel extends JPanel {
     }
 
     public void addLoginListener(ActionListener listener) {
+        username.addActionListener(listener);
+        password.addActionListener(listener);
         loginButton.addActionListener(listener);
     }
 
@@ -80,5 +82,19 @@ public class LoginPanel extends JPanel {
 
     public void setError(String text) {
         errorLabel.setText(text);
+    }
+
+    public String getUsername() {
+        return username.getText();
+    }
+
+    public String getPassword() {
+        return new String(password.getPassword());
+    }
+
+    public void clear() {
+        username.setText("");
+        password.setText("");
+        errorLabel.setText("");
     }
 }

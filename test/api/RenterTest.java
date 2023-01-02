@@ -41,11 +41,21 @@ public class RenterTest {
     @Test
     public void updateRating() {
         renter.addRental(rental);
-        assertEquals(0, renter.getRating());
+        assertEquals(0, renter.getRating(),0.001);
         rental.addReview(new Review(4, "very good", SDate.dateToString(),
                 new Tenant("name", "surname", "username", "password")));
         rental.updateRating();
         renter.updateRating();
-        assertEquals(4, renter.getRating());
+        assertEquals(4, renter.getRating(),0.001);
+    }
+
+    @Test
+    public void getTotalReviews() {
+        assertEquals(0,renter.getTotalReviews());
+        rental.addReview(new Review(4,"very good",SDate.dateToString(),new Tenant("name2","surname2","username2","password2")));
+        rental.updateRating();
+        renter.addRental(rental);
+        renter.updateRating();
+        assertEquals(1,renter.getTotalReviews());
     }
 }

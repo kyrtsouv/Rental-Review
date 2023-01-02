@@ -139,7 +139,7 @@ public class RentalTest {
         rental.addReview(new Review(3, "good", SDate.dateToString(),
                 new Tenant("name", "surname", "username", "password")));
         rental.updateRating();
-        assertEquals(4, rental.rating);
+        assertEquals(4, rental.rating,0.001);
     }
 
     @Test
@@ -153,14 +153,43 @@ public class RentalTest {
     public void getRating() {
         rental.addReview(review);
         rental.updateRating();
-        assertEquals(5, rental.getRating());
+        assertEquals(5, rental.getRating(),0.001);
     }
 
     @Test
     public void gettotalRatings() {
-        assertEquals(0, rental.gettotalReviews());
+        assertEquals(0, rental.getTotalReviews());
         rental.addReview(review);
         rental.updateRating();
-        assertEquals(1, rental.gettotalReviews());
+        assertEquals(1, rental.getTotalReviews());
+    }
+
+    @Test
+    public void getTotalReviews() {
+        assertEquals(0, rental.getTotalReviews());
+        rental.addReview(review);
+        assertEquals(1,rental.getTotalReviews());
+    }
+
+    @Test
+    public void getSearchID() {
+        assertEquals("rentalname type address city zipcode", rental.getSearchID());
+    }
+
+    @Test
+    public void getLocation() {
+        assertEquals("address, city, zipcode", rental.getLocation());
+    }
+
+    @Test
+    public void getAmenitiesString() {
+        assertTrue(rental.getAmenitiesString().equals(""));
+        HashSet<String> amenities = new HashSet<>() {
+            {
+                add("Θέα");
+            }
+        };
+        rental.setAmenities(amenities);
+        assertEquals("θέα ", rental.getAmenitiesString());
     }
 }

@@ -1,11 +1,13 @@
 package gui;
 
 import javax.swing.*;
+import javax.swing.event.*;
+
 import java.awt.*;
 import java.awt.event.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class SearchPanel extends JPanel {
     SidePanel sidePanel;
@@ -20,31 +22,15 @@ public class SearchPanel extends JPanel {
 
     boolean searchFieldAccessed;
 
-    public SearchPanel(ArrayList<PreviewPanel> previewPanels, HashMap<String, ArrayList<String>> amenities) {
+    public SearchPanel(HashSet<PreviewPanel> previewPanels, HashMap<String, HashSet<String>> amenities) {
         dashboardButton = new MyButton("Dashboard");
 
         sidePanel = new SidePanel(previewPanels, amenities);
 
         searchFieldAccessed = false;
-        searchField = new JTextField("Search");
-        searchField.setBorder(BorderFactory.createLineBorder(Color.black, 1));
-        searchField.addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                if (!searchFieldAccessed) {
-                    searchField.setText("");
-                    searchFieldAccessed = true;
-                }
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                if (searchField.getText().equals("")) {
-                    searchField.setText("Search");
-                    searchFieldAccessed = false;
-                }
-            }
-        });
+        searchField = new JTextField();
+        searchField
+                .setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black, 3), "Search"));
 
         searchPanel = new JPanel(new BorderLayout());
         searchPanel.setBorder(BorderFactory.createLineBorder(getBackground(), 3));
@@ -71,24 +57,28 @@ public class SearchPanel extends JPanel {
         dashboardButton.addActionListener(listener);
     }
 
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Search Panel Test");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 600);
+    public void addDocumentListener(DocumentListener listener) {
+        searchField.getDocument().addDocumentListener(listener);
+    }
 
-        ArrayList<PreviewPanel> previewPanels = new ArrayList<PreviewPanel>();
-        for (int i = 0; i < 10; i++) {
-            previewPanels.add(new PreviewPanel("name" + i, "type" + i, "location" + i, i));
+    public void addSearchListener(ActionListener listener) {
+        sidePanel.addSearchListener(listener);
+    }
+
+    public String getSearchText() {
+        return searchField.getText();
+    }
+
+    public String getAmenities() {
+        return sidePanel.getAmenities();
+    }
+
+    public void updateSearchResults(HashSet<PreviewPanel> previewPanels) {
+        previewsPanel.removeAll();
+        for (PreviewPanel previewPanel : previewPanels) {
+            previewsPanel.add(previewPanel);
         }
-
-        HashMap<String, ArrayList<String>> amenities = new HashMap<String, ArrayList<String>>();
-        ArrayList<String> amenitiesList = new ArrayList<String>();
-        amenitiesList.add("Amenity 1");
-        amenitiesList.add("Amenity 2");
-        amenitiesList.add("Amenity 3");
-        amenities.put("Amenity", amenitiesList);
-
-        frame.add(new SearchPanel(previewPanels, amenities));
-        frame.setVisible(true);
+        revalidate();
+        repaint();
     }
 }

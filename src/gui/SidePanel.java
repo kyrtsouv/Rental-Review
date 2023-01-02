@@ -4,8 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class SidePanel extends JPanel {
     JPanel blackBorderPanel;
@@ -13,16 +13,20 @@ public class SidePanel extends JPanel {
     JPanel amenityPanel;
     JPanel amenityHeaderPanel;
 
+    JLabel amenityHeaderLabel;
+    MyButton openButton;
+
     HashMap<String, AmenityMap> amenityMaps;
 
-    public SidePanel(ArrayList<PreviewPanel> previewPanels, HashMap<String, ArrayList<String>> amenities) {
+    public SidePanel(HashSet<PreviewPanel> previewPanels, HashMap<String, HashSet<String>> amenities) {
         amenityMaps = new HashMap<String, AmenityMap>();
 
         for (String amenityTitle : amenities.keySet()) {
-            JLabel amenityHeaderLabel = new JLabel(amenityTitle);
-            MyButton openButton = new MyButton("Open");
+            amenityHeaderLabel = new JLabel(amenityTitle);
+            openButton = new MyButton("Open");
 
             amenityHeaderPanel = new JPanel();
+            amenityHeaderPanel.setAlignmentX(LEFT_ALIGNMENT);
             amenityHeaderPanel.setLayout(new BoxLayout(amenityHeaderPanel, BoxLayout.LINE_AXIS));
             amenityHeaderPanel.add(amenityHeaderLabel);
             amenityHeaderPanel.add(Box.createHorizontalGlue());
@@ -45,10 +49,9 @@ public class SidePanel extends JPanel {
 
             add(amenityPanel);
 
-            ArrayList<JCheckBox> checkBoxes = new ArrayList<JCheckBox>();
+            HashSet<JCheckBox> checkBoxes = new HashSet<JCheckBox>();
             for (String amenity : amenities.get(amenityTitle)) {
                 JCheckBox amenityCheckBox = new JCheckBox(amenity);
-                amenityCheckBox.setAlignmentX(RIGHT_ALIGNMENT);
                 checkBoxes.add(amenityCheckBox);
             }
 
@@ -84,12 +87,13 @@ public class SidePanel extends JPanel {
 
     private class AmenityMap {
         JPanel panel;
-        ArrayList<JCheckBox> checkBoxes;
+        HashSet<JCheckBox> checkBoxes;
         MyButton openButton;
 
         boolean buttonPressed;
 
-        public AmenityMap(JPanel amenityPanel, ArrayList<JCheckBox> amenityCheckBoxes, MyButton openButton,
+        public AmenityMap(JPanel amenityPanel,
+                HashSet<JCheckBox> amenityCheckBoxes, MyButton openButton,
                 boolean buttonPressed) {
             this.panel = amenityPanel;
             this.checkBoxes = amenityCheckBoxes;
@@ -97,4 +101,25 @@ public class SidePanel extends JPanel {
             this.buttonPressed = buttonPressed;
         }
     }
+
+    public void addSearchListener(ActionListener listener) {
+        for (AmenityMap amenityMap : amenityMaps.values()) {
+            for (JCheckBox amenityCheckBox : amenityMap.checkBoxes) {
+                amenityCheckBox.addActionListener(listener);
+            }
+        }
+    }
+
+    public String getAmenities() {
+        String amenities = "";
+        for (AmenityMap amenityMap : amenityMaps.values()) {
+            for (JCheckBox amenityCheckBox : amenityMap.checkBoxes) {
+                if (amenityCheckBox.isSelected()) {
+                    amenities += amenityCheckBox.getText() + ",";
+                }
+            }
+        }
+        return amenities;
+    }
+
 }

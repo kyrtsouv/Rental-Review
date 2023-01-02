@@ -90,7 +90,31 @@ public class RegisterPanel extends JPanel {
         add(Box.createVerticalGlue());
     }
 
+    public String getName() {
+        return name.getText();
+    }
+
+    public String getSurname() {
+        return surname.getText();
+    }
+
+    public String getUsername() {
+        return username.getText();
+    }
+
+    public String getPassword() {
+        return new String(password.getPassword());
+    }
+
+    public String getType() {
+        return (String) typeComboBox.getSelectedItem();
+    }
+
     public void addRegisterListener(ActionListener listener) {
+        name.addActionListener(listener);
+        surname.addActionListener(listener);
+        username.addActionListener(listener);
+        password.addActionListener(listener);
         registerButton.addActionListener(listener);
     }
 
@@ -100,5 +124,13 @@ public class RegisterPanel extends JPanel {
 
     public void setError(String error) {
         errorLabel.setText(error);
+    }
+
+    public void clear() {
+        name.setText("");
+        surname.setText("");
+        username.setText("");
+        password.setText("");
+        errorLabel.setText("");
     }
 }

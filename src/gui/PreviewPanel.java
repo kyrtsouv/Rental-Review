@@ -15,14 +15,14 @@ public class PreviewPanel extends JPanel {
 
     MyButton previewButton;
 
-    public PreviewPanel(String name, String type, String location, int rating) {
+    public PreviewPanel(String name, String type, String location, float rating) {
         titleLabel = new JLabel("<html>" + name + " - " + type + "</html>");
         titleLabel.setFont(titleLabel.getFont().deriveFont(14.0f));
 
         locationLabel = new JLabel("<html>" + location + "</html>");
         locationLabel.setFont(locationLabel.getFont().deriveFont(12.0f));
 
-        ratingLabel = new JLabel("<html>" + "Rating: " + rating + "</html>");
+        ratingLabel = new JLabel("<html>" + "Rating: " + (float) Math.round(rating * 100) / 100 + "</html>");
         ratingLabel.setFont(ratingLabel.getFont().deriveFont(13.0f));
 
         whiteBorderPanel = new JPanel();
@@ -47,18 +47,16 @@ public class PreviewPanel extends JPanel {
         add(previewButton);
     }
 
-    public void addPreviewButtonListener(ActionListener listener) {
+    public void addPreviewListener(ActionListener listener) {
         previewButton.addActionListener(listener);
     }
 
-    public static void main(String[] args) {
-        JFrame frame = new JFrame();
-        frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.PAGE_AXIS));
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(new PreviewPanel("name", "type", "location", 5));
-        frame.add(new PreviewPanel("name", "type", "location", 4));
-        frame.setLocationRelativeTo(null);
-        frame.pack();
-        frame.setVisible(true);
+    public void updatePreview(String name, String type, String location, float rating) {
+        titleLabel.setText("<html>" + name + " - " + type + "</html>");
+        locationLabel.setText("<html>" + location + "</html>");
+        ratingLabel.setText("<html>" + "Rating: " + (float) Math.round(rating * 100) / 100 + "</html>");
+
+        revalidate();
+        repaint();
     }
 }
