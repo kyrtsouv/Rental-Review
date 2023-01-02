@@ -10,13 +10,12 @@ import static org.junit.Assert.*;
 public class TenantTest {
 
     private Tenant tenant;
-    private Renter renter;
     private Rental rental;
     private Review review;
 
     @Before
-    public void setUp() throws Exception {
-        renter = new Renter("name", "surname", "username", "password");
+    public void setUp(){
+        Renter renter = new Renter("name", "surname", "username", "password");
         tenant = new Tenant("name", "surname", "username2", "password");
         rental = new Rental("rentalName", "type", "address", "city", "zipcode", "description", new HashSet<>(), renter);
         review = new Review(4, "very good", SDate.dateToString(), tenant);
