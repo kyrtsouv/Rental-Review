@@ -6,7 +6,8 @@ public class Rental {
     private HashMap<String, String> details;
     private HashMap<String, Review> reviews;
 
-    public Rental(String name, String address, String city, String postcode, String description, String type, String owner) {
+    public Rental(String name, String address, String city, String postcode, String description, String type,
+            String owner) {
         details = new HashMap<>() {
             {
                 put("name", name);
@@ -22,8 +23,12 @@ public class Rental {
         this.reviews = new HashMap<String, Review>();
     }
 
-    public HashMap<String, String> getRental() {
+    public HashMap<String, String> getDetails() {
         return new HashMap<>(details);
+    }
+
+    public String getName() {
+        return details.get("name");
     }
 
     public HashMap<String, String> getPreview() {
@@ -69,7 +74,8 @@ public class Rental {
         updateRating();
     }
 
-    public void editRental(String name, String address, String city, String postcode, String description, String type, String owner) {
+    public void editRental(String name, String address, String city, String postcode, String description, String type,
+            String owner) {
         details.replace("name", name);
         details.replace("address", address);
         details.replace("city", city);
@@ -81,6 +87,5 @@ public class Rental {
     // θα πρεπει να μπορει να γινει ελεχγος χρηστη για ειτε την επεξεργασια σχολιου
     // ειτε του rental
     // plus getter για το κομματι του gui
-
 
 }

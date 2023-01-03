@@ -3,7 +3,6 @@ import api.*;
 //Μετά θα δοκιμάσουμε με αυτό το πρόγραμμα που μας έχει δώσει ο Τσουμάκας για να διοθρώσουμε το κώδικα αν χρειάζεται και μετά έχουμε tests & GUI
 //ΕΠΙΣΗΣ πρεπει να δούμε το controller για να μην υπάρχει κάποιο θέμα
 
-
 public class Main {
 
     public static void main(String[] args) {
@@ -14,10 +13,6 @@ public class Main {
                 "Viktor Kyrtsoudis");
 
         renter.addRental(r);
-
-        renter.addReview(r, new Review("John Wick", "Amazing house with all amenities ", 5));
-
-        renter.editReview(r, new Review("John Wick", "Amazing house with all amenities and a great view", 4));
 
         r.deleteReview("John Wick");
     }
