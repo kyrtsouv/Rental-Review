@@ -1,11 +1,11 @@
+package api;
+
 import java.io.*;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
 
-import api.*;
-
-public class Database implements Serializable {
+public class Database implements Serializable, CharSequence {
     private HashMap<String, User> users;
     private HashSet<Rental> rentals;
     private HashMap<String, HashSet<String>> amenities;
@@ -142,4 +142,18 @@ public class Database implements Serializable {
         }
     }
 
+    @Override
+    public int length() {
+        return 0;
+    }
+
+    @Override
+    public char charAt(int index) {
+        return 0;
+    }
+
+    @Override
+    public CharSequence subSequence(int start, int end) {
+        return null;
+    }
 }

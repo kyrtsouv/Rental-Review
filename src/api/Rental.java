@@ -68,14 +68,14 @@ public class Rental {
     }
 
     public void editRental(String name, String address, String city, String postcode, String description, String type,
-            HashMap<String, HashSet<String>> amenities) {
+            String owner) {
         details.replace("name", name);
         details.replace("address", address);
         details.replace("city", city);
         details.replace("postcode", postcode);
         details.replace("description", description);
         details.replace("type", type);
-        this.amenities = amenities;
+        // this.amenities = amenities;
     }
 
     // θα πρεπει να μπορει να γινει ελεχγος χρηστη για ειτε την επεξεργασια σχολιου

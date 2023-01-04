@@ -17,6 +17,12 @@ public class Renter extends User {
         rentals.add(rental);
     }
 
+    public void editRental(Rental rental, String name, String address, String city, String postcode, String description,
+            String type, String owner) {
+        if (rentals.contains(rental))
+            rental.editRental(name, address, city, postcode, description, type, owner);
+    }
+
     public void deleteRental(Rental rental) {
         rentals.remove(rental);
     }
