@@ -1,24 +1,27 @@
 package gui;
 
-import java.io.*;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.View;
 import java.awt.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+//Αυτή η κλάση αποτελεί το κομμάτι του search του προγράμματος είτε μέσω ενός απλού searchbar ή φιλτραρίσματος βασισμένα στην τοποθεσία και το τύπο της ιδιοκτησίας
 public class Search extends JFrame implements DocumentListener {
     //θα πρεπει να εχουμε ενα απλο search bar + φιλτραρισμα στοιχειων για εμφανιση συγκεκριμενου κομματιου
     private View view;
     private static final long serialVersionUID = -1662279563193298340L;
     private JList<String> list;
-    private List data = new List<>();
+    private List data = new ArrayList();
 
     private DefaultListModel<String> model;
     private JTextField searchField;
 
+
+    //Αρχικά εδώ δημιουργείται ένα παράθυρο για την αναζήτηση, το οποίο αποτελείται απο (...)
     public Search(){
         //setLayout(new BoxLayout(this,BoxLayout.X_AXIS));
         //this.view=new view;

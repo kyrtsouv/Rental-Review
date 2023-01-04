@@ -1,19 +1,21 @@
 package gui;
+
+import api.Database;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-
 //Η συγκεκριμένη κλάση αποτελεί την διαδικασία ελέγχου κάθε χρήστη
 
-public class LoginForm implements ActionListener {
+public class LoginForm{
     private static JLabel password1, label;
     private static JTextField username;
-    private static JButton button;
+    private static JButton loginButton, registerButton;
     private static JPasswordField Password;
 
-    void CreateLoginForm(){
+    //Εδώ γίνεται η απλή δημιουργία ενός Panel και Frame για τη δημιουργία παραθύρου login & register.
+    // Αποτελείται απο δυο JPanels για να πάρουμε τις πληροφορίες και απο δυο JButtons για να επιλέγει ο χρήστης είτε να κάνει register είτε να κάνει login.
+    public LoginForm(Database b) {
         JPanel panel = new JPanel();
         panel.setLayout(null);
 
@@ -21,40 +23,76 @@ public class LoginForm implements ActionListener {
         frame.setTitle("LOGIN PAGE");
         frame.setLocation(new Point(500, 300));
         frame.add(panel);
-        frame.setSize(new Dimension(400, 200));
+        frame.setSize(new Dimension(400, 250));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+
 
         //Δημιουργία της ταμπέλας username
         label = new JLabel("Username");
         label.setBounds(100, 8, 70, 20);
         panel.add(label);
-        label = new JLabel("Username");
-        label.setBounds(100, 8, 70, 20);
-        panel.add(label);
+        username = new JTextField();
+        username.setBounds(100, 32, 193, 28);
+        panel.add(username);
 
 
-        //ίδια διαδικασία με πριν γίνεται ξανά τώρα για το κωδικό
+        //Ίδια διαδικασία με πριν γίνεται ξανά τώρα για το κωδικό
         password1 = new JLabel("Password");
-        password1.setBounds(100, 55, 70, 20);
+        password1.setBounds(100, 60, 70, 20);
         panel.add(password1);
         Password = new JPasswordField();
-        Password.setBounds(100, 75, 193, 28);
+        Password.setBounds(100, 84, 193, 28);
         panel.add(Password);
 
+        //Δημιουργία της επιλογής Login
+        loginButton = new JButton("Login");
+        loginButton.setBounds(150, 120, 90, 25);
+        loginButton.setForeground(Color.WHITE);
+        loginButton.setBackground(Color.BLACK);
+        loginButton.addActionListener(e -> loginListener());
+        panel.add(loginButton);
 
-        button = new JButton("Login");
-        button.setBounds(100, 110, 90, 25);
-        button.setForeground(Color.WHITE);
-        button.setBackground(Color.BLACK);
-        button.addActionListener(this);
-        panel.add(button);
+        //Δημιουργία της επιλογής Register
+        registerButton = new JButton("Register");
+        registerButton.setBounds(150, 150, 90, 25);
+        registerButton.setForeground(Color.WHITE);
+        registerButton.setBackground(Color.BLACK);
+        registerButton.addActionListener(e -> registerListener());
+        panel.add(registerButton);
+        frame.setVisible(true);
     }
-    @Override
-    public void actionPerformed(ActionEvent e) {
+    //Το loginListener είναι συνάρτηση που δέχεται τις πληροφορίες σύνδεσης απο τον χρήστη και ελέγχει μέσω του database αν οι πληροφορίες είναι όντως σωστές.
+    // Αν είναι τότε η σύνδεση είναι επιτυχής αλλιώς ο χρήστης επιστρέφει στην αρχική σελίδα
+    private void loginListener() {
         String Username = username.getText();
-        String Password1 = Password.getText();
+        char[] Password1 = Password.getPassword();
 
-        if (Username.equals("section.io") && Password1.equals("123")) JOptionPane.showMessageDialog(null, "Login Successful");
-        else JOptionPane.showMessageDialog(null, "Username or Password mismatch ");
+            if(Username.contains(Database.load()) && Password1.toString().contains(Database.load())){
+                JOptionPane.showMessageDialog(null, "Login Successful");
+            }
+            else JOptionPane.showMessageDialog(null, "Wrong Input");
     }
+
+
+    //Παρόμοια με την προηγούμενη συνάρτηση, αυτή δέχεται πληροφορίες σύνδεσης απο τον χρήστη και ελέγχει αρχικά να μην υπάρχουν ήδη στο database.
+    //Έπειτα εφόσον δεν υπάρχουν ήδη, αποθηκεύει αυτές τις καινούργιες πληροφορίες στο database για επόμενη χρήση.
+    private void registerListener() {
+        String Username = username.getText();
+        char[] Password1 = Password.getPassword();
+
+            if(Username.contains(Database.load()) && Password1.toString().contains(Database.load())){
+                JOptionPane.showMessageDialog(null, "Wrong Input");
+            }
+            else JOptionPane.showMessageDialog(null, "Register Successful");
+
+    }
+ // @Override
+  public void actionPerformed(ActionEvent e) {
+        //String Username = username.getText();
+        //String Password1 = Password.getText();
+
+//        if (Username.equals("section.io") && Password1.equals("123")) JOptionPane.showMessageDialog(null, "Login Successful");
+//        else JOptionPane.showMessageDialog(null, "Username or Password mismatch ");
+  }
 }
