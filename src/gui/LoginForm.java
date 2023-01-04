@@ -86,6 +86,7 @@ public class LoginForm{
             }
             else JOptionPane.showMessageDialog(null, "Register Successful");
 
+
     }
  // @Override
   public void actionPerformed(ActionEvent e) {
