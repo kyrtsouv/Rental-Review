@@ -23,10 +23,14 @@ public class Review {
         return rating;
     }
 
+    public String getRatingString() {
+        return String.valueOf(rating);
+    }
+
     public void editReview(String comment, int rating) {
         this.comment = comment;
         this.rating = rating;
     }
-    //ισως και εδω ελενχος χρηστη??
+    // ισως και εδω ελενχος χρηστη??
 
 }

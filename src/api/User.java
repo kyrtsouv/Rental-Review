@@ -1,33 +1,36 @@
 package api;
 
+import java.util.HashMap;
+
 public class User {
-    String name;
-    String surname;
-    String username;
-    String password;
-    int rating;
+    HashMap<String, String> details;
 
     public User(String name, String surname, String username, String password) {
-        this.name = name;
-        this.surname = surname;
-        this.username = username;
-        this.password = password;
+
+        details = new HashMap<String, String>() {
+            {
+                put("name", name);
+                put("surname", surname);
+                put("username", username);
+                put("password", password);
+            }
+        };
     }
 
     public String getName() {
-        return name;
+        return details.get("name");
     }
 
     public String getSurname() {
-        return surname;
+        return details.get("surname");
     }
 
     public String getUsername() {
-        return username;
+        return details.get("username");
     }
 
     public String getPassword() {
-        return password;
+        return details.get("password");
     }
 
 }
