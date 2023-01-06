@@ -4,23 +4,13 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 //Για τους ιδιώτες
-public class Renter {
+public class Renter extends User {
 
     private HashSet<Rental> rentals;
-    private HashMap<String, String> details;
 
     public Renter(String name, String surname, String username, String password) {
+        super(name, surname, username, password);
         rentals = new HashSet<Rental>();
-        details = new HashMap<String, String>() {
-            {
-                put("name", name);
-                put("surname", surname);
-                put("username", username);
-                put("password", password);
-                put("ratingAmount", "0");
-                put("rating", "0");
-            }
-        };
     }
 
     public void addRental(Rental rental) {
@@ -28,7 +18,7 @@ public class Renter {
     }
 
     public void editRental(Rental rental, String name, String address, String city, String postcode, String description,
-                           String type, String owner) {
+            String type, String owner) {
         if (rentals.contains(rental))
             rental.editRental(name, address, city, postcode, description, type, owner);
     }
@@ -43,6 +33,14 @@ public class Renter {
 
     public HashMap<String, String> getDetails() {
         return new HashMap<>(details);
+    }
+
+    public int getRatingAmount() {
+        int sum = 0;
+        for (Rental rental : rentals) {
+            sum += Integer.parseInt(rental.getDetails().get("rating"));
+        }
+        return sum;
     }
 
     public int getRating() {

@@ -1,13 +1,15 @@
 package api;
 
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class Rental {
     private HashMap<String, String> details;
     private HashMap<String, Review> reviews;
+    private HashMap<String, HashSet<String>> amenities;
 
     public Rental(String name, String address, String city, String postcode, String description, String type,
-                  String owner) {
+            String owner) {
         details = new HashMap<>() {
             {
                 put("name", name);
@@ -17,18 +19,10 @@ public class Rental {
                 put("description", description);
                 put("type", type);
                 put("owner", owner);
-                put("rating", "0");
             }
         };
         this.reviews = new HashMap<String, Review>();
-    }
-
-    public HashMap<String, String> getDetails() {
-        return new HashMap<>(details);
-    }
-
-    public String getName() {
-        return details.get("name");
+        this.amenities = new HashMap<String, HashSet<String>>();
     }
 
     public HashMap<String, String> getPreview() {
@@ -39,9 +33,16 @@ public class Rental {
                 put("address", details.get("address"));
                 put("city", details.get("city"));
                 put("postcode", details.get("postcode"));
-                put("rating", details.get("rating"));
             }
         };
+    }
+
+    public HashMap<String, HashSet<String>> getAmenities() {
+        return new HashMap<>(amenities);
+    }
+
+    public HashMap<String, String> getDetails() {
+        return new HashMap<>(details);
     }
 
     public HashMap<String, Review> getReviews() {
@@ -50,38 +51,31 @@ public class Rental {
 
     public void addReview(Review review) {
         reviews.put(review.getUser(), review);
-        updateRating();
     }
 
-    public void editReview(Review review) {
-        reviews.replace(review.getUser(), review);
-        updateRating();
+    public void deleteReview(String user) {
+        reviews.remove(user);
     }
 
-    public void updateRating() {
+    public String getRating() {
         int sum = 0;
         for (Review review : reviews.values()) {
             sum += review.getRating();
         }
         if (reviews.size() > 0)
-            details.replace("rating", String.valueOf(sum / reviews.size()));
-        else
-            details.replace("rating", "0");
-    }
-
-    public void deleteReview(String user) {
-        reviews.remove(user);
-        updateRating();
+            return Rounder.round(sum / reviews.size());
+        return "0";
     }
 
     public void editRental(String name, String address, String city, String postcode, String description, String type,
-                           String owner) {
+            String owner) {
         details.replace("name", name);
         details.replace("address", address);
         details.replace("city", city);
         details.replace("postcode", postcode);
         details.replace("description", description);
         details.replace("type", type);
+        // this.amenities = amenities;
     }
 
 
