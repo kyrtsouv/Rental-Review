@@ -1,55 +1,35 @@
 package gui;
 
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.text.View;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+
 
 //Αυτή η κλάση αποτελεί το κομμάτι του search του προγράμματος είτε μέσω ενός απλού searchbar ή φιλτραρίσματος βασισμένα στην τοποθεσία και το τύπο της ιδιοκτησίας
-public class Search extends JFrame implements DocumentListener {
-    //θα πρεπει να εχουμε ενα απλο search bar + φιλτραρισμα στοιχειων για εμφανιση συγκεκριμενου κομματιου
-    private View view;
-    private static final long serialVersionUID = -1662279563193298340L;
-    private JList<String> list;
-    private List data = new ArrayList();
+public class Search extends JFrame  {
 
-    private DefaultListModel<String> model;
-    private JTextField searchField;
-
+    public static JTextField search;
 
     //Αρχικά εδώ δημιουργείται ένα παράθυρο για την αναζήτηση, το οποίο αποτελείται απο (...)
     public Search(){
-        //setLayout(new BoxLayout(this,BoxLayout.X_AXIS));
-        //this.view=new view;
-        super("test");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        JPanel searchpanel = new JPanel();
+        searchpanel.setLayout(null);
+        //this view= new View;
+        JFrame secondframe = new JFrame();
+        secondframe.setTitle("Search");
+        secondframe.setLocation(new Point(400, 200));
+        secondframe.add(searchpanel);
+        secondframe.setSize(new Dimension(800, 500));
+        secondframe.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        setLayout(new BorderLayout());
 
-        searchField = new JTextField();
-        searchField.getDocument().addDocumentListener(this);
-        add(searchField, BorderLayout.PAGE_START);
 
-        createData();
-
-        list = new JList<>(model = new DefaultListModel<>());
-        //data.forEach(model::addElement);
-        for(Object temp:data) model.addElement((String) temp);
-        add(new JScrollPane(list), BorderLayout.CENTER);
-
-        setSize(500, 500);
-        setLocationByPlatform(true);
     }
-    private void createData() {
-        for (int i = 0; i < 1000; i++) {
-            String s = "String: " + i + ".";
-            data.add(s);
-        }
-    }
+//    private void createData() {
+//        for (int i = 0; i < 1000; i++) {
+//            String s = "String: " + i + ".";
+//            data.add(s);
+//        }
+//    }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
@@ -60,24 +40,24 @@ public class Search extends JFrame implements DocumentListener {
 
 
 
-    @Override
-    public void removeUpdate(DocumentEvent e) {
-        search();
-    }
+//    @Override
+//    public void removeUpdate(DocumentEvent e) {
+//        search();
+//    }
 
-    @Override
-    public void changedUpdate(DocumentEvent e) {
-        search();
-    }
-    private void search() {
-        Collectors Collectors = null;
-        List<String> filtered = (List<String>) data.stream().filter(s -> s.toString().toLowerCase().contains(searchField.getText().toLowerCase())).collect(Collectors.toList());
-        model.removeAllElements();
-        for (String temp :filtered) model.addElement(temp);
-    }
-    @Override
-    public void insertUpdate(DocumentEvent e) {
-        search();
-    }
+//    @Override
+//    public void changedUpdate(DocumentEvent e) {
+//        search();
+//    }
+//    private void search() {
+//        Collectors Collectors = null;
+//        List<String> filtered = (List<String>) data.stream().filter(s -> s.toString().toLowerCase().contains(searchField.getText().toLowerCase())).collect(Collectors.toList());
+//        model.removeAllElements();
+//        for (String temp :filtered) model.addElement(temp);
+//    }
+//    @Override
+//    public void insertUpdate(DocumentEvent e) {
+//        search();
+//    }
 }
 

@@ -84,8 +84,6 @@ public class Rental {
         details.replace("type", type);
     }
 
-    // θα πρεπει να μπορει να γινει ελεχγος χρηστη για ειτε την επεξεργασια σχολιου
-    // ειτε του rental
-    // plus getter για το κομματι του gui
+
 
 }

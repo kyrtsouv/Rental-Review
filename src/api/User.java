@@ -1,5 +1,5 @@
 package api;
-
+//Κλάση για τις πληροφορίες χρήστη
 public class User {
     String name;
     String surname;

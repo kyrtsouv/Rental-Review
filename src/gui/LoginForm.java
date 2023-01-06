@@ -4,22 +4,20 @@ import api.Database;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-//Η συγκεκριμένη κλάση αποτελεί την διαδικασία ελέγχου κάθε χρήστη
+import java.util.Arrays;
+//Η συγκεκριμένη κλάση αποτελεί τη διαδικασία ελέγχου κάθε χρήστη
 
 public class LoginForm{
-    private static JLabel password1, label;
     private static JTextField username;
-    private static JButton loginButton, registerButton;
     private static JPasswordField Password;
-
+    public JFrame frame = new JFrame();
     //Εδώ γίνεται η απλή δημιουργία ενός Panel και Frame για τη δημιουργία παραθύρου login & register.
     // Αποτελείται απο δυο JPanels για να πάρουμε τις πληροφορίες και απο δυο JButtons για να επιλέγει ο χρήστης είτε να κάνει register είτε να κάνει login.
-    public LoginForm(Database b) {
+    public LoginForm() {
         JPanel panel = new JPanel();
         panel.setLayout(null);
 
-        JFrame frame = new JFrame();
+        //JFrame frame = new JFrame();
         frame.setTitle("LOGIN PAGE");
         frame.setLocation(new Point(500, 300));
         frame.add(panel);
@@ -29,7 +27,7 @@ public class LoginForm{
 
 
         //Δημιουργία της ταμπέλας username
-        label = new JLabel("Username");
+        JLabel label = new JLabel("Username");
         label.setBounds(100, 8, 70, 20);
         panel.add(label);
         username = new JTextField();
@@ -38,7 +36,7 @@ public class LoginForm{
 
 
         //Ίδια διαδικασία με πριν γίνεται ξανά τώρα για το κωδικό
-        password1 = new JLabel("Password");
+        JLabel password1 = new JLabel("Password");
         password1.setBounds(100, 60, 70, 20);
         panel.add(password1);
         Password = new JPasswordField();
@@ -46,7 +44,7 @@ public class LoginForm{
         panel.add(Password);
 
         //Δημιουργία της επιλογής Login
-        loginButton = new JButton("Login");
+        JButton loginButton = new JButton("Login");
         loginButton.setBounds(150, 120, 90, 25);
         loginButton.setForeground(Color.WHITE);
         loginButton.setBackground(Color.BLACK);
@@ -54,13 +52,14 @@ public class LoginForm{
         panel.add(loginButton);
 
         //Δημιουργία της επιλογής Register
-        registerButton = new JButton("Register");
+        JButton registerButton = new JButton("Register");
         registerButton.setBounds(150, 150, 90, 25);
         registerButton.setForeground(Color.WHITE);
         registerButton.setBackground(Color.BLACK);
         registerButton.addActionListener(e -> registerListener());
         panel.add(registerButton);
         frame.setVisible(true);
+
     }
     //Το loginListener είναι συνάρτηση που δέχεται τις πληροφορίες σύνδεσης απο τον χρήστη και ελέγχει μέσω του database αν οι πληροφορίες είναι όντως σωστές.
     // Αν είναι τότε η σύνδεση είναι επιτυχής αλλιώς ο χρήστης επιστρέφει στην αρχική σελίδα
@@ -68,10 +67,11 @@ public class LoginForm{
         String Username = username.getText();
         char[] Password1 = Password.getPassword();
 
-            if(Username.contains(Database.load()) && Password1.toString().contains(Database.load())){
-                JOptionPane.showMessageDialog(null, "Login Successful");
-            }
-            else JOptionPane.showMessageDialog(null, "Wrong Input");
+        if(Username.contains(Database.load()) && Arrays.toString(Password1).contains(Database.load())){
+            JOptionPane.showMessageDialog(null, "Login Successful");
+        }
+        else JOptionPane.showMessageDialog(null, "Wrong Input");
+        this.frame.dispose();
     }
 
 
@@ -80,20 +80,12 @@ public class LoginForm{
     private void registerListener() {
         String Username = username.getText();
         char[] Password1 = Password.getPassword();
-
-            if(Username.contains(Database.load()) && Password1.toString().contains(Database.load())){
-                JOptionPane.showMessageDialog(null, "Wrong Input");
-            }
-            else JOptionPane.showMessageDialog(null, "Register Successful");
-
+        if(Username.contains(Database.load()) && Arrays.toString(Password1).contains(Database.load())){
+            JOptionPane.showMessageDialog(null, "Wrong Input");
+        }
+        else JOptionPane.showMessageDialog(null, "Register Successful");
+        this.frame.dispose();
 
     }
- // @Override
-  public void actionPerformed(ActionEvent e) {
-        //String Username = username.getText();
-        //String Password1 = Password.getText();
 
-//        if (Username.equals("section.io") && Password1.equals("123")) JOptionPane.showMessageDialog(null, "Login Successful");
-//        else JOptionPane.showMessageDialog(null, "Username or Password mismatch ");
-  }
 }
