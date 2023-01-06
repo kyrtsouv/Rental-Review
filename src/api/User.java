@@ -1,36 +1,33 @@
 package api;
-
-import java.util.HashMap;
-
+//Κλάση για τις πληροφορίες χρήστη
 public class User {
-    HashMap<String, String> details;
+    String name;
+    String surname;
+    String username;
+    String password;
+    int rating;
 
     public User(String name, String surname, String username, String password) {
-
-        details = new HashMap<String, String>() {
-            {
-                put("name", name);
-                put("surname", surname);
-                put("username", username);
-                put("password", password);
-            }
-        };
+        this.name = name;
+        this.surname = surname;
+        this.username = username;
+        this.password = password;
     }
 
     public String getName() {
-        return details.get("name");
+        return name;
     }
 
     public String getSurname() {
-        return details.get("surname");
+        return surname;
     }
 
     public String getUsername() {
-        return details.get("username");
+        return username;
     }
 
     public String getPassword() {
-        return details.get("password");
+        return password;
     }
 
 }

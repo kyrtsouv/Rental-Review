@@ -1,11 +1,7 @@
-import api.Database;
-import api.Rental;
-import api.Renter;
-import gui.LoginForm;
-//ΓΕΝΙΚΑ μας εχει μεινει στο κομματι API: database,search
-//Μετά θα δοκιμάσουμε με αυτό το πρόγραμμα που μας έχει δώσει ο Τσουμάκας για να διορθώσουμε το κώδικα αν χρειάζεται και μετά έχουμε tests & GUI
-//ΕΠΙΣΗΣ πρεπει να δούμε το controller για να μην υπάρχει κάποιο θέμα
+import api.*;
+import gui.*;
 
+//Αυτή είναι η κεντρική κλάση main στην οποία υλοποιούνται όλες οι άλλες
 public class Main {
 
     public static void main(String[] args) {
@@ -19,8 +15,12 @@ public class Main {
 
         r.deleteReview("John Wick");
 
-        Database b = new Database();
-        LoginForm login = new LoginForm(b);
+        GUImain guImain=new GUImain();
+//        Database b = new Database();
+//        LoginForm login = new LoginForm();
+//        UserGUI userGUI = new UserGUI();
+//        Search search = new Search();
+        Preview preview = new Preview();
 
     }
 

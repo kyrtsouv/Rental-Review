@@ -78,8 +78,6 @@ public class Rental {
         // this.amenities = amenities;
     }
 
-    // θα πρεπει να μπορει να γινει ελεχγος χρηστη για ειτε την επεξεργασια σχολιου
-    // ειτε του rental
-    // plus getter για το κομματι του gui
+
 
 }
