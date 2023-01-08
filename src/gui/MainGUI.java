@@ -22,7 +22,21 @@ public class MainGUI extends JFrame {
         this.login = login;
         this.register = register;
 
-        authenticationHandling();
+        login.addRegisterListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                show(register);
+                previous = login;
+            }
+        });
+
+        register.addLoginListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                show(login);
+                previous = register;
+            }
+        });
         scrollPane = new JScrollPane(mainPanel);
 
         show(login);
@@ -50,23 +64,5 @@ public class MainGUI extends JFrame {
 
     public void showPrevious() {
         show(previous);
-    }
-
-    public void authenticationHandling() {
-        login.addRegisterListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                show(register);
-                previous = login;
-            }
-        });
-
-        register.addLoginListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                show(login);
-                previous = register;
-            }
-        });
     }
 }
