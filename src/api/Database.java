@@ -4,19 +4,21 @@ import java.io.*;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
-
+//Η εξής κλάση αποτελεί το κομμάτι του Database.
+// Με άλλα λόγια εδώ υπάρχουν όλες οι πληροφορίες για το κομμάτι της αναζήτησης όσο αφορά την ιδιοκτησία
 public class Database implements Serializable {
-    private HashMap<String, User> users;
-    private HashSet<Rental> rentals;
-    private HashMap<String, HashSet<String>> amenities;
-    private HashSet<String> rentalTypes;
+    HashMap<String, User> users;
+    HashSet<Rental> rentals;
+    HashMap<String, HashSet<String>> amenities;
+    HashSet<String> rentalTypes;
 
     private static final long serialVersionUID = 1;
-
+    //Καταρχάς όλες οι πληροφορίες θα είναι σε hashmap καθώς θεωρήσαμε ότι έτσι είναι πιο εύκολο για αποθήκευση και επιστροφή στοιχείων
+    //Επίσης κάθε πληροφορία απο αυτές χρησιμοποιήται στο κομμάτι του EditRental, RentalGUI & SearchGUI
     public Database() {
         users = new HashMap<>();
         rentals = new HashSet<>();
-
+        //HashSet για τους τύπους rental
         rentalTypes = new HashSet<>() {
             {
                 add("Ξενοδοχείο");
@@ -24,7 +26,7 @@ public class Database implements Serializable {
                 add("Μεζονέτα");
             }
         };
-
+        //HashSet για το τι προσφέρει κάθε rental με υποκατηγορίες για επιλογή σε άλλες κλάσεις
         amenities = new HashMap<>() {
             {
                 put("Θέα", new HashSet<>() {
@@ -93,34 +95,35 @@ public class Database implements Serializable {
         };
     }
 
+    //Εδώ γίνεται απλή επιστροφή πληροφορίας του @user
     public void addUser(User user) {
         users.put(user.getUsername(), user);
     }
-
+    //Με αυτό το τρόπο δημιουργείται ένα rental
     public void addRental(Rental rental) {
         rentals.add(rental);
     }
-
+    //Με παρόμοιο τρόπο γίνεται η αφαίρεση του @rentals
     public void removeRental(Rental rental) {
         rentals.remove(rental);
     }
-
+    //Επίσης με παρόμοιο τρόπο επιστρέφουμε τις πληροφορίες των @rentals
     public HashSet<Rental> getRentals() {
         return rentals;
     }
-
+    //Παρόμοιο τρόπο για επιστροφή @users
     public HashMap<String, User> getUsers() {
         return users;
     }
-
+    //Επιστροφή τύπου ιδιοκτησίας/καταλύματος
     public HashSet<String> getRentalTypes() {
         return rentalTypes;
     }
-
+    //Επιστροφή πιο συγκεκριμένων πληροφοριών για το rental(@amenities)
     public HashMap<String, HashSet<String>> getAmenities() {
         return amenities;
     }
-
+    //Με την παρακάτω διαδικασία γίνεται αποθήκευση νέων πληροφοριών
     public void save() {
         try {
             ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("data.dat"));
@@ -130,7 +133,7 @@ public class Database implements Serializable {
             e.printStackTrace();
         }
     }
-
+    //Με παρόμοιο τρόπο κατόπιν γίνεται η φόρτωση και εμφάνιση πληροφοριών
     public static Database load() {
         try {
             ObjectInputStream in = new ObjectInputStream(new FileInputStream("data.dat"));

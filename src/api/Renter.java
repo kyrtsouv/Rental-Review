@@ -2,28 +2,29 @@ package api;
 
 import java.util.HashSet;
 
-//Για τους ιδιώτες
+//Αυτή είναι μία κλάση επεξεργασίας και αποθήκευσης πληροφοριών μόνο για χρήστης με ειδικό χαρακτηριστικό ότι είναι ιδιώτες
 public class Renter extends User {
 
     private HashSet<Rental> rentals;
-
+    //Εδώ γίνεται η αρχικοποίηση ενός καταλύματος για το χρήστη
     public Renter(String name, String surname, String username, String password) {
         super(name, surname, username, password);
         rentals = new HashSet<Rental>();
     }
-
+    //Παρόμοια με τη Rental εδώ δίνονται οι επιλογές στο χρήστη για δημιουργία & διαγραφή καταλύματος/ιδιοκτησίας(rental)
     public void addRental(Rental rental) {
         rentals.add(rental);
     }
-
     public void deleteRental(Rental rental) {
         rentals.remove(rental);
     }
 
+    //Φυσικά, εδώ πρέπει να υπάρχει η επιλογή για επιστροφή πληροφοριών ενός καταλύματος
     public HashSet<Rental> getRentals() {
         return new HashSet<>(rentals);
     }
 
+    //Καθώς και για επιστροφή συνολικής αξιολόγησης του καταλύματος
     public int getRatingAmount() {
         int sum = 0;
         for (Rental rental : rentals) {
@@ -32,6 +33,7 @@ public class Renter extends User {
         return sum;
     }
 
+    //Εδώ γίνεται υπολογισμός συνολικής αξιολόγησης του καταλύματος
     public float getRating() {
         float sum = 0;
         for (Rental rental : rentals) {
@@ -43,6 +45,5 @@ public class Renter extends User {
             return sum / getRatingAmount();
         return 0;
     }
-    // θα πρεπει να συνδεσουμε τις πληροφοριες απο το rental στο renter για να γινει
-    // επισκοπηση ,δημιουργια,επεξεργασια και διαγραφη του rental
+
 }

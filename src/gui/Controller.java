@@ -3,7 +3,7 @@ package gui;
 import api.*;
 
 import java.awt.event.*;
-
+//Αυτή η κλάση αποτελεί το γενικό κομμάτι του ελεγκτή κάνοντας την τελική σύνδεση όλων των αρχείων GUI με αυτό του Main
 public class Controller {
     Database db;
     User user;
