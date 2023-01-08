@@ -68,10 +68,6 @@ public class RentalGUI extends RefreshablePanel {
         top.add(backButton);
         top.setAlignmentX(LEFT_ALIGNMENT);
 
-        location = new JLabel(rental.get("location"));
-
-        description = new JLabel(rental.get("description"));
-
         String amenities = "Παροχές:  ";
         for (String amenity : rental.getAmenities()) {
             amenities += amenity + ", ";
@@ -103,19 +99,18 @@ public class RentalGUI extends RefreshablePanel {
             }
         });
 
-        addPanel = new JPanel();
-        addPanel.setLayout(new BoxLayout(addPanel, BoxLayout.LINE_AXIS));
-        addPanel.setAlignmentX(LEFT_ALIGNMENT);
-        addPanel.add(Box.createHorizontalGlue());
-        addPanel.add(addButton);
-        addPanel.add(Box.createHorizontalGlue());
-
         reviews = new JPanel();
         reviews.setLayout(new BoxLayout(reviews, BoxLayout.PAGE_AXIS));
         reviews.setAlignmentX(Box.LEFT_ALIGNMENT);
 
         if (!viewer.equals(renter))
             if (!rental.getReviews().containsKey(viewer)) {
+                addPanel = new JPanel();
+                addPanel.setLayout(new BoxLayout(addPanel, BoxLayout.LINE_AXIS));
+                addPanel.setAlignmentX(LEFT_ALIGNMENT);
+                addPanel.add(Box.createHorizontalGlue());
+                addPanel.add(addButton);
+                addPanel.add(Box.createHorizontalGlue());
                 reviews.add(addPanel);
             } else {
                 reviews.add(new ReviewGUI(rental.getReviews().get(viewer), viewer, (Tenant) viewer, rental, main));
@@ -127,8 +122,9 @@ public class RentalGUI extends RefreshablePanel {
         }
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         add(top);
-        add(location);
-        add(description);
+        add(new JLabel(rental.get("type")));
+        add(new JLabel(rental.get("location")));
+        add(new JLabel(rental.get("description")));
         add(amenitiesText);
         add(rating);
         add(totalReviews);
