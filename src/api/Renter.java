@@ -5,7 +5,7 @@ import java.util.HashSet;
 //Για τους ιδιώτες
 public class Renter extends User {
 
-    private HashSet<Rental> rentals;
+    HashSet<Rental> rentals;
 
     public Renter(String name, String surname, String username, String password) {
         super(name, surname, username, password);

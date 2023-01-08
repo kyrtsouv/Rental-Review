@@ -6,10 +6,10 @@ import java.util.Date;
 import java.io.Serializable;
 
 public class Review implements Serializable {
-    private Tenant user;
-    private String comment;
-    private String date;
-    private int rating;
+    Tenant user;
+    String comment;
+    String date;
+    int rating;
 
     public Review(Tenant user, String comment, int rating) {
         this.user = user;

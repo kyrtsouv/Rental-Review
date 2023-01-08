@@ -5,11 +5,11 @@ import java.util.HashSet;
 import java.io.Serializable;
 
 public class Rental implements Serializable {
-    private HashMap<String, String> details;
-    private HashMap<Tenant, Review> reviews;
-    private HashSet<String> amenities;
-    private Renter owner;
-    private HashSet<String> searchFilters;
+    HashMap<String, String> details;
+    HashMap<Tenant, Review> reviews;
+    HashSet<String> amenities;
+    Renter owner;
+    HashSet<String> searchFilters;
 
     public Rental(String name, String address, String city, String postcode, String description, String type,
             Renter owner, HashSet<String> amenities) {

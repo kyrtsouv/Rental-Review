@@ -6,10 +6,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 public class Database implements Serializable {
-    private HashMap<String, User> users;
-    private HashSet<Rental> rentals;
-    private HashMap<String, HashSet<String>> amenities;
-    private HashSet<String> rentalTypes;
+    HashMap<String, User> users;
+    HashSet<Rental> rentals;
+    HashMap<String, HashSet<String>> amenities;
+    HashSet<String> rentalTypes;
 
     private static final long serialVersionUID = 1;
 
