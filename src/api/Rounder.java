@@ -1,7 +1,7 @@
 package api;
 
 import java.text.DecimalFormat;
-//Αυτή είναι μία βοηθητική κλάση για μετατροπή και επιστροφή πραγματικού αριθμού με δύο δεκαδικά στοιχεία
+/*Αυτή είναι μία βοηθητική κλάση για μετατροπή και επιστροφή πραγματικού αριθμού με δύο δεκαδικά στοιχεία*/
 public class Rounder {
 
     private static final DecimalFormat df = new DecimalFormat("0.00");
