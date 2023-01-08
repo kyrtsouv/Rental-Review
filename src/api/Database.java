@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
 
-public class Database implements Serializable, CharSequence {
+public class Database implements Serializable {
     private HashMap<String, User> users;
     private HashSet<Rental> rentals;
     private HashMap<String, HashSet<String>> amenities;
@@ -140,20 +140,5 @@ public class Database implements Serializable, CharSequence {
         } catch (Exception e) {
             return new Database();
         }
-    }
-
-    @Override
-    public int length() {
-        return 0;
-    }
-
-    @Override
-    public char charAt(int index) {
-        return 0;
-    }
-
-    @Override
-    public CharSequence subSequence(int start, int end) {
-        return null;
     }
 }

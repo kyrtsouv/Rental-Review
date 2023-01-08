@@ -1,17 +1,24 @@
 package api;
 
-public class Review {
-    private String user;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import java.io.Serializable;
+
+public class Review implements Serializable {
+    private Tenant user;
     private String comment;
+    private String date;
     private int rating;
 
-    public Review(String user, String comment, int rating) {
+    public Review(Tenant user, String comment, int rating) {
         this.user = user;
         this.comment = comment;
         this.rating = rating;
+        this.date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
     }
 
-    public String getUser() {
+    public Tenant getUser() {
         return user;
     }
 
@@ -23,14 +30,14 @@ public class Review {
         return rating;
     }
 
-    public String getRatingString() {
-        return String.valueOf(rating);
+    public String getDate() {
+        return date;
     }
 
     public void editReview(String comment, int rating) {
         this.comment = comment;
         this.rating = rating;
+        this.date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
     }
-    // ισως και εδω ελενχος χρηστη??
 
 }

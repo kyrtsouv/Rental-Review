@@ -1,11 +1,12 @@
 package api;
-//Κλάση για τις πληροφορίες χρήστη
-public class User {
+
+import java.io.Serializable;
+
+public class User implements Serializable {
     String name;
     String surname;
     String username;
     String password;
-    int rating;
 
     public User(String name, String surname, String username, String password) {
         this.name = name;

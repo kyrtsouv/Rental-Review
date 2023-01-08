@@ -1,35 +1,35 @@
 package api;
 
-import java.util.HashSet;
+import java.util.HashMap;
 
 public class Tenant extends User {
-    HashSet<Review> reviews;
+    HashMap<Rental, Review> reviews;
 
     public Tenant(String name, String surname, String username, String password) {
         super(name, surname, username, password);
-        reviews = new HashSet<Review>();
+        reviews = new HashMap<Rental, Review>();
     }
 
-    public void addReview(Review review) {
-        reviews.add(review);
+    public void addReview(Rental rental, Review review) {
+        reviews.put(rental, review);
     }
 
-    public void deleteReview(Review review) {
-        reviews.remove(review);
+    public void deleteReview(Rental rental) {
+        reviews.remove(rental);
     }
 
-    public HashSet<Review> getReviews() {
-        return new HashSet<>(reviews);
+    public HashMap<Rental, Review> getReviews() {
+        return new HashMap<>(reviews);
     }
 
-    public String getRating() {
-        int sum = 0;
-        for (Review review : reviews) {
+    public float getRating() {
+        float sum = 0;
+        for (Review review : reviews.values()) {
             sum += review.getRating();
         }
         if (reviews.size() > 0)
-            return Rounder.round(sum / reviews.size());
+            return sum / reviews.size();
         else
-            return "0";
+            return 0;
     }
 }
