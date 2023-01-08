@@ -17,7 +17,7 @@ public class MainGUI extends JFrame {
     RefreshablePanel current;
 
     public MainGUI(LoginGUI login, RegisterGUI register) {
-        super("Login/Register");
+        super("MyReviews");
         mainPanel = new RefreshablePanel();
         this.login = login;
         this.register = register;
